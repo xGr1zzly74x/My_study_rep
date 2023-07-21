@@ -1,6 +1,7 @@
 //Для вызова fetch через node.js
 //- фигурные скобки нужны для явного импорта библиотеки
 //Для подключения библиотеки через import в файл package.json добавлен параметр  "type": "module"
+//Библиотеки node-fetch и https-proxy-agent нужно установить через команду npm i
 
 import fetch from "node-fetch"
 import {HttpsProxyAgent} from "https-proxy-agent" 
