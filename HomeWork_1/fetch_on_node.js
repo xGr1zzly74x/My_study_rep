@@ -6,7 +6,7 @@
 import fetch from "node-fetch"
 import {HttpsProxyAgent} from "https-proxy-agent" 
 
-const proxyAgent = new HttpsProxyAgent('http://shabalinIA:qwe123QWE@proxy.chmk.mechelgroup.ru:8080')
+const proxyAgent = new HttpsProxyAgent('http://login:password@proxy.chmk.mechelgroup.ru:8080')
 
 const place_name = 'Челябинск'
 const API_KEY_YANDEX = '85eaff1b-ef9e-4c11-89bc-ca01d1ae43de'
