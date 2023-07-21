@@ -1,0 +1,44 @@
+body{
+    background-color:bisque;
+}
+
+ul{
+    list-style: none;
+}
+
+.blok_1{
+    width: 33%;
+    outline-style: auto;
+    
+}
+
+.blok_2{
+    width: 33%;
+    outline-style: auto;
+}
+
+.blok_3{
+    width: 33%;
+    outline-style: auto;
+}
+
+.main{
+    display: flex;
+}
+.button{
+    display: inline-block;
+    padding: 20px 20px;
+    border: 2px solid;
+    cursor: pointer;
+}
+
+.blok{
+    margin-left: 0;
+    display: flex;
+    width: 80%;
+}
+
+#city_select{
+    height: 10%;
+    width: 20%;
+}
