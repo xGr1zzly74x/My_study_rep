@@ -1,9 +1,9 @@
-const API_KEY_YANDEX = "85eaff1b-ef9e-4c11-89bc-ca01d1ae43de";
+const API_KEY_YANDEX = "85eaff1b-ef9e-4c11-89bc-ca01d1ae43de"
 
 document
   .getElementById("city_select")
   .addEventListener("submit", function (event) {
-    event.preventDefault(); // Отменяем отправку формы
+    event.preventDefault() // Отменяем отправку формы
     const place_name = document.getElementById("city").value
     const API_URL_GEO_DATA = `https://geocode-maps.yandex.ru/1.x/?apikey=${API_KEY_YANDEX}&geocode=${place_name}&format=json`
 
@@ -12,12 +12,14 @@ document
       //.then(my_resp => console.log(my_resp.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos))
 
       .then(function (resp_city) {
-        let str = resp_city.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+        let str =
+          resp_city.response.GeoObjectCollection.featureMember[0].GeoObject
+            .Point.pos
         let coordinates = str.split(" ")
 
         //console.log(coordinates)
-        const API_OPEN_METEO = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${coordinates[1]}&longitude=${coordinates[0]}&hourly=pm10,pm2_5`;
-        
+        const API_OPEN_METEO = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${coordinates[1]}&longitude=${coordinates[0]}&hourly=pm10,pm2_5`
+
         fetch(API_OPEN_METEO)
           .then((resp_meteo) => resp_meteo.json())
 
