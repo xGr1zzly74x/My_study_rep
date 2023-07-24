@@ -33,6 +33,19 @@
 
           document.querySelector(".table_pol").appendChild(head)
           let length = resp_meteo.hourly.time.length //Считаем, что массивы одинаковой длины
+          let date_arr = resp_meteo.hourly.time.map(item => {
+            return item.slice(0,10)
+          })
+          let uniqDate = new Set(date_arr);
+          //console.log(uniqDate) массив значений x (даты)
+
+          let now_dat
+          let prev_dat
+          let sum_pm10
+          let sum_pm2_5
+
+          const arr_pok10 = new Array()
+          const arr_pok2_5 = new Array()
 
           for (let i = 0; i < length; i += 1) {
             let row = document.createElement("tr")
@@ -45,7 +58,35 @@
                              <td>${resp_meteo.hourly.pm2_5[i]}</td>`
 
             document.querySelector(".table_pol").appendChild(row)
+
+            now_dat = m_time_date[0]
+
+            if(prev_dat == null) {
+              sum_pm10 = resp_meteo.hourly.pm10[i]
+              sum_pm2_5 = resp_meteo.hourly.pm2_5[i]
+            }
+            else{
+              if(now_dat == prev_dat) {
+                sum_pm10 += resp_meteo.hourly.pm10[i]
+                sum_pm2_5 += resp_meteo.hourly.pm2_5[i]
+              }
+              else{
+                arr_pok10.push(sum_pm10/24)
+                arr_pok2_5.push(sum_pm2_5/24)
+                sum_pm10 = resp_meteo.hourly.pm10[i]
+                sum_pm2_5 = resp_meteo.hourly.pm2_5[i]
+              }
+            }
+
+            if (i == length){
+              arr_pok10.push(sum_pm10/24)
+              arr_pok2_5.push(sum_pm2_5/24)
+            }
+            prev_dat = m_time_date[0]
           }
+          //console.log(arr_pok10) массив значений y (показатели загрязнения)
+          //console.log(arr_pok2_5) массив значений y (показатели загрязнения)
+
         })
       return resp_city
     })
