@@ -24,31 +24,25 @@ document.getElementById("city_select").addEventListener("submit", function (even
         // .then(resp_meteo => console.log(resp_meteo.hourly.pm2_5))
 
         .then((resp_meteo) => {
-          for (let i = 0; i < resp_meteo.hourly.time.length; i += 1) {
-            const ztime = document.getElementById("ztime")
-            let li = document.createElement("li")
-            let span = document.createElement("span")
+          document.querySelector(".div_table_pol").innerHTML = `<table class ="table_pol"></table>`
+          let head = document.createElement("thead")
+          head.innerHTML = `<th>Дата</th>
+                            <th>Время</th>
+                            <th>PM10</th>
+                            <th>PM2_5</th>`
+          document.querySelector(".table_pol").appendChild(head)
+          let length = resp_meteo.hourly.time.length //Считаем, что массивы одинаковой длины
+
+          for (let i = 0; i < length; i += 1) {
+            let row = document.createElement("tr")
             let str_time_date = resp_meteo.hourly.time[i]
             let m_time_date = str_time_date.split("T")
-            span.innerHTML = `${m_time_date[0]} ${m_time_date[1]}`
-            li.appendChild(span)
-            ztime.appendChild(li)
-          }
-          for (let i = 0; i < resp_meteo.hourly.pm10.length; i += 1) {
-            const zpm_10 = document.getElementById("zpm_10")
-            let li = document.createElement("li")
-            let span = document.createElement("span")
-            span.innerHTML = `${resp_meteo.hourly.pm10[i]}`
-            li.appendChild(span)
-            zpm_10.appendChild(li)
-          }
-          for (let i = 0; i < resp_meteo.hourly.pm2_5.length; i += 1) {
-            const zpm_2_5 = document.getElementById("zpm_2_5")
-            let li = document.createElement("li")
-            let span = document.createElement("span")
-            span.innerHTML = `${resp_meteo.hourly.pm10[i]}`
-            li.appendChild(span)
-            zpm_2_5.appendChild(li)
+
+            row.innerHTML = `<td>${m_time_date[0]}</td> 
+                             <td>${m_time_date[1]}</td> 
+                             <td>${resp_meteo.hourly.pm10[i]}</td> 
+                             <td>${resp_meteo.hourly.pm2_5[i]}</td>`
+            document.querySelector(".table_pol").appendChild(row)
           }
         })
       return resp_city

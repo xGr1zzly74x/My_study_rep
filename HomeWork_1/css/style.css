@@ -2,43 +2,46 @@ body{
     background-color:bisque;
 }
 
-ul{
-    list-style: none;
-}
-
-.blok_1{
-    width: 33%;
-    outline-style: auto;
-    
-}
-
-.blok_2{
-    width: 33%;
-    outline-style: auto;
-}
-
-.blok_3{
-    width: 33%;
-    outline-style: auto;
-}
-
-.main{
-    display: flex;
-}
 .button{
     display: inline-block;
-    padding: 20px 20px;
+    padding: 5px 5px;
     border: 2px solid;
     cursor: pointer;
 }
 
-.blok{
-    margin-left: 0;
-    display: flex;
-    width: 80%;
-}
-
 #city_select{
     height: 10%;
-    width: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+.div_table_pol th{ 
+    background-color:deepskyblue;
+}
+
+.div_table_pol td{ 
+    border: ridge;
+}
+
+.div_table_pol{
+    width: 30%;
+    display: block;
+    border: double;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.zscroll-scrollbar {
+    position: relative;
+    height: 300px;
+    overflow: auto;
+    }
+
+.table_pol{
+    background: azure;
+    table-layout: fixed;
+    width: 100%;
 }
