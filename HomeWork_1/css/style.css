@@ -12,9 +12,9 @@ body{
 #city_select{
     height: 10%;
     width: 100%;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
-    padding: 15px;
+    padding: 15px 0px 15px 665px;
 }
 
 .div_table_pol th{ 
@@ -27,11 +27,10 @@ body{
 
 .div_table_pol{
     width: 30%;
-    display: block;
     border: double;
-    display: flex;
     justify-content: center;
     margin: auto;
+    display: none;
 }
 
 .zscroll-scrollbar {

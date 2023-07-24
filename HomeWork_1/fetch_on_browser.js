@@ -1,8 +1,6 @@
-const API_KEY_YANDEX = "85eaff1b-ef9e-4c11-89bc-ca01d1ae43de"
-
-document.getElementById("city_select").addEventListener("submit", function (event) {
-  event.preventDefault() // Отменяем отправку формы
+  function select(){
   const place_name = document.getElementById("city").value
+  const API_KEY_YANDEX = "85eaff1b-ef9e-4c11-89bc-ca01d1ae43de"
   const API_URL_GEO_DATA = `https://geocode-maps.yandex.ru/1.x/?apikey=${API_KEY_YANDEX}&geocode=${place_name}&format=json`
 
   fetch(API_URL_GEO_DATA)
@@ -24,12 +22,15 @@ document.getElementById("city_select").addEventListener("submit", function (even
         // .then(resp_meteo => console.log(resp_meteo.hourly.pm2_5))
 
         .then((resp_meteo) => {
+          document.querySelector(".div_table_pol").style.display= "block"
           document.querySelector(".div_table_pol").innerHTML = `<table class ="table_pol"></table>`
+
           let head = document.createElement("thead")
           head.innerHTML = `<th>Дата</th>
                             <th>Время</th>
                             <th>PM10</th>
                             <th>PM2_5</th>`
+
           document.querySelector(".table_pol").appendChild(head)
           let length = resp_meteo.hourly.time.length //Считаем, что массивы одинаковой длины
 
@@ -42,9 +43,11 @@ document.getElementById("city_select").addEventListener("submit", function (even
                              <td>${m_time_date[1]}</td> 
                              <td>${resp_meteo.hourly.pm10[i]}</td> 
                              <td>${resp_meteo.hourly.pm2_5[i]}</td>`
+
             document.querySelector(".table_pol").appendChild(row)
           }
         })
       return resp_city
     })
-})
+  }
+//})
