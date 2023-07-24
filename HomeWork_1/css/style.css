@@ -2,6 +2,9 @@ body{
     background-color:bisque;
 }
 
+.chart{
+    padding: 20px 0px 0px 300px;
+}
 .button{
     display: inline-block;
     padding: 5px 5px;
@@ -12,9 +15,8 @@ body{
 #city_select{
     height: 10%;
     width: 100%;
-    /* display: flex; */
     justify-content: center;
-    padding: 15px 0px 15px 665px;
+    padding: 15px 0px 15px 785px;
 }
 
 .div_table_pol th{ 

@@ -19,7 +19,7 @@
         <div class="div_table_pol zscroll-scrollbar"></div>
 
         <div class="chart">
-            <canvas id="graphics"></canvas>
+            <canvas id="graphics" width="200" height="100"></canvas>
         </div>
     </div>
 
@@ -40,7 +40,7 @@
             data: arr_pok2_5, 
             backgroundColor: "rgba(54, 162, 235, 0.2)", // Цвет фона
             borderColor: "rgba(54, 162, 235, 1)", // Цвет границы
-            borderWidth: 1, // Толщина границ
+            borderWidth: 3, // Толщина границ
           }
 
           const PM10 = {
@@ -48,7 +48,7 @@
             data: arr_pok10, 
             backgroundColor: "rgba(255, 159, 64, 0.2)", // Цвет фона
             borderColor: "rgba(255, 159, 64, 1)", // Цвет границы
-            borderWidth: 1, // Толщина границ
+            borderWidth: 3, // Толщина границ
           }
 
         new Chart(graphics, {
