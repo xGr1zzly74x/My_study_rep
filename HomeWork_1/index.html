@@ -7,21 +7,67 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <div class ="main">
 
         <form id="city_select"> 
             <input class="city_select" id="city"  placeholder="Введите&nbsp;название&nbsp;города"> 
-            <button type="button" class="button" id="button_select" onclick="select()">Получить&nbsp;данные</button> 
-            <button type="button" class="button" id="button_chart" onclick="chart()">Построить&nbsp;график</button>
+            <button type="button" class="button" id="button_select">Получить&nbsp;данные</button> 
+            <button type="button" class="button" id="button_chart">Построить&nbsp;график</button>
         </form>
 
         <div class="div_table_pol zscroll-scrollbar"></div>
 
         <div class="chart">
-            <div canvas id="myChart"></canvas></div>
+            <canvas id="graphics"></canvas>
         </div>
-        
-        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="fetch_on_browser.js"></script>
+
+    <script>
+        document.getElementById("button_chart").addEventListener("click", function(event){
+        //Получение ссылки на элемент canvas в DOM
+        const graphics = document.getElementById('graphics')
+
+        console.log(uniqDate)//массив значений x (даты)
+        //console.log(arr_pok10)//массив значений y (показатели загрязнения)
+        //console.log(arr_pok2_5)//массив значений y (показатели загрязнения)
+
+        const PM2_5 = {
+            label: "PM2_5",
+            data: arr_pok2_5, 
+            backgroundColor: "rgba(54, 162, 235, 0.2)", // Цвет фона
+            borderColor: "rgba(54, 162, 235, 1)", // Цвет границы
+            borderWidth: 1, // Толщина границ
+          }
+
+          const PM10 = {
+            label: "PM10",
+            data: arr_pok10, 
+            backgroundColor: "rgba(255, 159, 64, 0.2)", // Цвет фона
+            borderColor: "rgba(255, 159, 64, 1)", // Цвет границы
+            borderWidth: 1, // Толщина границ
+          }
+
+        new Chart(graphics, {
+            type: "line", 
+            data: {
+              labels: Array.from(uniqDate),
+              datasets: [
+                PM2_5,
+                PM10,
+              ],
+            },
+            options: {
+                scales: {
+                     y: { beginAtZero: true
+                    }
+                }
+            },
+          })
+        })
+    </script>
 </body>
 </html>
