@@ -41,6 +41,7 @@
             backgroundColor: "rgba(54, 162, 235, 0.2)", // Цвет фона
             borderColor: "rgba(54, 162, 235, 1)", // Цвет границы
             borderWidth: 3, // Толщина границ
+            label: "PM 2_5",
           }
 
           const PM10 = {
@@ -49,6 +50,7 @@
             backgroundColor: "rgba(255, 159, 64, 0.2)", // Цвет фона
             borderColor: "rgba(255, 159, 64, 1)", // Цвет границы
             borderWidth: 3, // Толщина границ
+            label: "PM 10",
           }
 
         new Chart(graphics, {
@@ -61,6 +63,12 @@
               ],
             },
             options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `Среднесуточное загрязнение воздуха в городе ${place_name}`,
+                     }
+                },
                 scales: {
                      y: { beginAtZero: true
                     }

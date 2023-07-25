@@ -1,9 +1,10 @@
 const arr_pok10  = new Array()
 const arr_pok2_5 = new Array()
 let uniqDate     = new Array()
+let place_name
 
 document.getElementById("button_select").addEventListener("click", function(event){
-  const place_name = document.getElementById("city").value
+  place_name = document.getElementById("city").value
   const API_KEY_YANDEX = "85eaff1b-ef9e-4c11-89bc-ca01d1ae43de"
   const API_URL_GEO_DATA = `https://geocode-maps.yandex.ru/1.x/?apikey=${API_KEY_YANDEX}&geocode=${place_name}&format=json`
 
