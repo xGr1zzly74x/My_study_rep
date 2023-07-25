@@ -137,9 +137,9 @@ document.getElementById("button_chart").addEventListener("click", function (even
   if (arr_pok2_5.length > 0 && arr_pok10.length > 0) {
     let graphics = document.getElementById("Graphics")
 
-    console.log(uniqDate) //массив значений x (даты)
-    console.log(arr_pok10)//массив значений y (показатели загрязнения)
-    console.log(arr_pok2_5)//массив значений y (показатели загрязнения)
+    //console.log(uniqDate) //массив значений x (даты)
+    //console.log(arr_pok10)//массив значений y (показатели загрязнения)
+    //console.log(arr_pok2_5)//массив значений y (показатели загрязнения)
 
     const PM2_5 = {
       label: "PM2_5",
