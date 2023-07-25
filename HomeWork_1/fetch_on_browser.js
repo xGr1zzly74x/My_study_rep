@@ -1,9 +1,9 @@
-const arr_pok10  = new Array()
+const arr_pok10 = new Array()
 const arr_pok2_5 = new Array()
-let uniqDate     = new Array()
+let uniqDate = new Array()
 let place_name
 
-document.getElementById("button_select").addEventListener("click", function(event){
+document.getElementById("button_select").addEventListener("click", function (event) {
   place_name = document.getElementById("city").value
   const API_KEY_YANDEX = "85eaff1b-ef9e-4c11-89bc-ca01d1ae43de"
   const API_URL_GEO_DATA = `https://geocode-maps.yandex.ru/1.x/?apikey=${API_KEY_YANDEX}&geocode=${place_name}&format=json`
@@ -66,12 +66,10 @@ document.getElementById("button_select").addEventListener("click", function(even
             if (prev_dat == null) {
               sum_pm10 = resp_meteo.hourly.pm10[i]
               sum_pm2_5 = resp_meteo.hourly.pm2_5[i]
-
             } else {
               if (now_dat == prev_dat) {
                 sum_pm10 += resp_meteo.hourly.pm10[i]
                 sum_pm2_5 += resp_meteo.hourly.pm2_5[i]
-                
               } else {
                 arr_pok10.push(sum_pm10 / 24)
                 arr_pok2_5.push(sum_pm2_5 / 24)
@@ -89,4 +87,52 @@ document.getElementById("button_select").addEventListener("click", function(even
         })
       return resp_city
     })
+})
+
+document.getElementById("button_chart").addEventListener("click", function (event) {
+  //Получение ссылки на элемент canvas в DOM
+  if (arr_pok2_5.length > 0 && arr_pok10.length > 0) {
+    let graphics = document.getElementById("Graphics")
+
+    //console.log(uniqDate) //массив значений x (даты)
+    //console.log(arr_pok10)//массив значений y (показатели загрязнения)
+    //console.log(arr_pok2_5)//массив значений y (показатели загрязнения)
+
+    const PM2_5 = {
+      label: "PM2_5",
+      data: arr_pok2_5,
+      backgroundColor: "rgba(54, 162, 235, 0.2)", // Цвет фона
+      borderColor: "rgba(54, 162, 235, 1)", // Цвет границы
+      borderWidth: 3, // Толщина границ
+      label: "PM 2_5",
+    }
+
+    const PM10 = {
+      label: "PM10",
+      data: arr_pok10,
+      backgroundColor: "rgba(255, 159, 64, 0.2)", // Цвет фона
+      borderColor: "rgba(255, 159, 64, 1)", // Цвет границы
+      borderWidth: 3, // Толщина границ
+      label: "PM 10",
+    }
+
+    new Chart(Graphics, {
+      type: "line",
+      data: {
+        labels: Array.from(uniqDate),
+        datasets: [PM2_5, PM10],
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: `Среднесуточное загрязнение воздуха в городе ${place_name}`,
+          },
+        },
+        scales: {
+          y: { beginAtZero: true },
+        },
+      },
+    })
+  }
 })

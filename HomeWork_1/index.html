@@ -1,81 +1,29 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Домашнее задание к занятию 4</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-    <div class ="main">
+  <body>
+   
+    <div class="main">
+      <form id="city_select">
+        <input class="city_select" id="city" placeholder="Введите&nbsp;название&nbsp;города" />
+        <button type="button" class="button" id="button_select">Получить&nbsp;данные</button>
+        <button type="button" class="button" id="button_chart">Построить&nbsp;график</button>
+      </form>
 
-        <form id="city_select"> 
-            <input class="city_select" id="city"  placeholder="Введите&nbsp;название&nbsp;города"> 
-            <button type="button" class="button" id="button_select">Получить&nbsp;данные</button> 
-            <button type="button" class="button" id="button_chart">Построить&nbsp;график</button>
-        </form>
+      <div class="div_table_pol zscroll-scrollbar"></div>
 
-        <div class="div_table_pol zscroll-scrollbar"></div>
-
-        <div class="chart">
-            <canvas id="graphics" width="200" height="100"></canvas>
-        </div>
+      <div class="chart">
+        <canvas id="Graphics" width="200" height="100"></canvas>
+      </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="fetch_on_browser.js"></script>
-
-    <script>
-        document.getElementById("button_chart").addEventListener("click", function(event){
-        //Получение ссылки на элемент canvas в DOM
-        const graphics = document.getElementById('graphics')
-
-        console.log(uniqDate)//массив значений x (даты)
-        //console.log(arr_pok10)//массив значений y (показатели загрязнения)
-        //console.log(arr_pok2_5)//массив значений y (показатели загрязнения)
-
-        const PM2_5 = {
-            label: "PM2_5",
-            data: arr_pok2_5, 
-            backgroundColor: "rgba(54, 162, 235, 0.2)", // Цвет фона
-            borderColor: "rgba(54, 162, 235, 1)", // Цвет границы
-            borderWidth: 3, // Толщина границ
-            label: "PM 2_5",
-          }
-
-          const PM10 = {
-            label: "PM10",
-            data: arr_pok10, 
-            backgroundColor: "rgba(255, 159, 64, 0.2)", // Цвет фона
-            borderColor: "rgba(255, 159, 64, 1)", // Цвет границы
-            borderWidth: 3, // Толщина границ
-            label: "PM 10",
-          }
-
-        new Chart(graphics, {
-            type: "line", 
-            data: {
-              labels: Array.from(uniqDate),
-              datasets: [
-                PM2_5,
-                PM10,
-              ],
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: `Среднесуточное загрязнение воздуха в городе ${place_name}`,
-                     }
-                },
-                scales: {
-                     y: { beginAtZero: true
-                    }
-                }
-            },
-          })
-        })
-    </script>
-</body>
+  </body>
 </html>
