@@ -2,6 +2,7 @@ const arr_pok10  = new Array()
 const arr_pok2_5 = new Array()
 let uniqDate     = new Array()
 let place_name
+let length
 
 document.getElementById("button_select").addEventListener("click", function (event) {
   place_name = document.getElementById("city").value
@@ -37,7 +38,7 @@ document.getElementById("button_select").addEventListener("click", function (eve
                             <th>PM2_5</th>`
 
           document.querySelector(".table_pol").appendChild(head)
-          let length = resp_meteo.hourly.time.length //Считаем, что массивы одинаковой длины
+          length = resp_meteo.hourly.time.length //Считаем, что массивы одинаковой длины
           let date_arr = resp_meteo.hourly.time.map((item) => {
             return item.slice(0, 10)
           })
@@ -65,12 +66,14 @@ document.getElementById("button_select").addEventListener("click", function (eve
 
             if (prev_dat == null) {
               sum_pm10 = resp_meteo.hourly.pm10[i]
-              sum_pm2_5 = resp_meteo.hourly.pm2_5[i]
-            } else {
+              sum_pm2_5 = resp_meteo.hourly.pm2_5[i]}
+
+            else {
               if (now_dat == prev_dat) {
                 sum_pm10 += resp_meteo.hourly.pm10[i]
-                sum_pm2_5 += resp_meteo.hourly.pm2_5[i]
-              } else {
+                sum_pm2_5 += resp_meteo.hourly.pm2_5[i]}
+
+              else {
                 arr_pok10.push(sum_pm10 / 24)
                 arr_pok2_5.push(sum_pm2_5 / 24)
                 sum_pm10 = resp_meteo.hourly.pm10[i]
@@ -78,7 +81,7 @@ document.getElementById("button_select").addEventListener("click", function (eve
               }
             }
 
-            if (i == length) {
+            if (i == length - 1) {
               arr_pok10.push(sum_pm10 / 24)
               arr_pok2_5.push(sum_pm2_5 / 24)
             }
@@ -94,9 +97,9 @@ document.getElementById("button_chart").addEventListener("click", function (even
   if (arr_pok2_5.length > 0 && arr_pok10.length > 0) {
     let graphics = document.getElementById("Graphics")
 
-    //console.log(uniqDate) //массив значений x (даты)
-    //console.log(arr_pok10)//массив значений y (показатели загрязнения)
-    //console.log(arr_pok2_5)//массив значений y (показатели загрязнения)
+    console.log(uniqDate) //массив значений x (даты)
+    console.log(arr_pok10)//массив значений y (показатели загрязнения)
+    console.log(arr_pok2_5)//массив значений y (показатели загрязнения)
 
     const PM2_5 = {
       label: "PM2_5",
