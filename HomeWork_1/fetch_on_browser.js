@@ -1,6 +1,6 @@
-const arr_pok10 = new Array()
+const arr_pok10  = new Array()
 const arr_pok2_5 = new Array()
-let uniqDate = new Array()
+let uniqDate     = new Array()
 let place_name
 
 document.getElementById("button_select").addEventListener("click", function (event) {
