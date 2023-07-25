@@ -3,6 +3,8 @@ const arr_pok2_5 = new Array()
 let uniqDate     = new Array()
 let place_name
 let length
+let count_pm10
+let count_pm2_5
 
 document.getElementById("button_select").addEventListener("click", function (event) {
   place_name = document.getElementById("city").value
@@ -50,6 +52,9 @@ document.getElementById("button_select").addEventListener("click", function (eve
           let sum_pm10
           let sum_pm2_5
 
+          count_pm10 = 0
+          count_pm2_5 = 0
+
           for (let i = 0; i < length; i += 1) {
             let row = document.createElement("tr")
             let str_time_date = resp_meteo.hourly.time[i]
@@ -64,6 +69,14 @@ document.getElementById("button_select").addEventListener("click", function (eve
 
             now_dat = m_time_date[0]
 
+            if (resp_meteo.hourly.pm10[i] !=null) {
+              count_pm10 += 1
+            }
+
+            if (resp_meteo.hourly.pm2_5[i] !=null) {
+              count_pm2_5 += 1
+            }
+
             if (prev_dat == null) {
               sum_pm10 = resp_meteo.hourly.pm10[i]
               sum_pm2_5 = resp_meteo.hourly.pm2_5[i]}
@@ -74,16 +87,42 @@ document.getElementById("button_select").addEventListener("click", function (eve
                 sum_pm2_5 += resp_meteo.hourly.pm2_5[i]}
 
               else {
-                arr_pok10.push(sum_pm10 / 24)
-                arr_pok2_5.push(sum_pm2_5 / 24)
+                if (count_pm10 > 0){
+                  arr_pok10.push(sum_pm10 / count_pm10)
+                }
+                else{
+                  arr_pok10.push(0)
+                }
+
+                if (count_pm2_5 > 0){
+                  arr_pok2_5.push(sum_pm2_5 / count_pm2_5)
+                }
+                else{
+                  arr_pok2_5.push(0)
+                }
+  
                 sum_pm10 = resp_meteo.hourly.pm10[i]
                 sum_pm2_5 = resp_meteo.hourly.pm2_5[i]
+
+                count_pm10 = 0
+                count_pm2_5 = 0
               }
             }
 
             if (i == length - 1) {
-              arr_pok10.push(sum_pm10 / 24)
-              arr_pok2_5.push(sum_pm2_5 / 24)
+              if (count_pm10 > 0){
+                arr_pok10.push(sum_pm10 / count_pm10)
+              }
+              else{
+                arr_pok10.push(0)
+              }
+
+              if (count_pm2_5 > 0){
+                arr_pok2_5.push(sum_pm2_5 / count_pm2_5)
+              }
+              else{
+                arr_pok2_5.push(0)
+              }
             }
             prev_dat = m_time_date[0]
           }
