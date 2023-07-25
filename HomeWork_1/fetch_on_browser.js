@@ -1,6 +1,7 @@
 const arr_pok10  = new Array()
 const arr_pok2_5 = new Array()
 let uniqDate     = new Array()
+
 let place_name
 let length
 let count_pm10
