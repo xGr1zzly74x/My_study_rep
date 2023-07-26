@@ -129,10 +129,10 @@ document.getElementById("button_select").addEventListener("click", function (eve
             prev_dat = m_time_date[0]
           }
         })
-        .catch(error => console.log(error))
+        .catch(error => console.log(`Ошибка fetch=== ${error}`))
       return resp_city
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log(`Ошибка fetch=== ${error}`))
 })
 
 document.getElementById("button_chart").addEventListener("click", function (event) {
