@@ -6,6 +6,7 @@ let place_name
 let length
 let count_pm10
 let count_pm2_5
+let chart
 
 document.getElementById("button_select").addEventListener("click", function (event) {
   place_name = document.getElementById("city").value
@@ -137,6 +138,11 @@ document.getElementById("button_chart").addEventListener("click", function (even
   if (arr_pok2_5.length > 0 && arr_pok10.length > 0) {
     let graphics = document.getElementById("Graphics").style.display = "block"
 
+    //Возможность обновлять график
+    if (chart != null ){
+      chart.destroy()
+    }
+    
     //console.log(uniqDate)//массив значений x (даты)
     //console.log(arr_pok10)//массив значений y (показатели загрязнения)
     //console.log(arr_pok2_5)//массив значений y (показатели загрязнения)
@@ -159,7 +165,7 @@ document.getElementById("button_chart").addEventListener("click", function (even
       label: "PM 10",
     }
 
-    new Chart(Graphics, {
+    chart = new Chart(Graphics, {
       type: "line",
       data: {
         labels: Array.from(uniqDate),
