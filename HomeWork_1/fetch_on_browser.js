@@ -135,7 +135,7 @@ document.getElementById("button_select").addEventListener("click", function (eve
 document.getElementById("button_chart").addEventListener("click", function (event) {
   //Получение ссылки на элемент canvas в DOM
   if (arr_pok2_5.length > 0 && arr_pok10.length > 0) {
-    let graphics = document.getElementById("Graphics")
+    let graphics = document.getElementById("Graphics").style.display = "block"
 
     //console.log(uniqDate)//массив значений x (даты)
     //console.log(arr_pok10)//массив значений y (показатели загрязнения)

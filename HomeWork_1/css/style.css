@@ -3,8 +3,15 @@ body{
 }
 
 .chart{
-    padding: 10px 0px 0px 100px;
+    width: 500px;
+    padding: 5px;
 }
+
+#Graphics {
+    border: solid;
+    display: none;
+}
+
 .button{
     display: inline-block;
     padding: 5px 5px;
@@ -16,7 +23,7 @@ body{
     height: 10%;
     width: 100%;
     justify-content: center;
-    padding: 15px 0px 15px 785px;
+    padding: 100px 0px 15px 5px;
 }
 
 .div_table_pol th{ 
@@ -28,10 +35,9 @@ body{
 }
 
 .div_table_pol{
-    width: 30%;
+    width: 500px;
     border: double;
     justify-content: center;
-    margin: auto;
     display: none;
 }
 
@@ -45,4 +51,5 @@ body{
     background: azure;
     table-layout: fixed;
     width: 100%;
+
 }
