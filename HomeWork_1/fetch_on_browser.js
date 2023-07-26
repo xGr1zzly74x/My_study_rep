@@ -23,7 +23,6 @@ document.getElementById("button_select").addEventListener("click", function (eve
 
       //console.log(coordinates)
       const API_OPEN_METEO = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${coordinates[1]}&longitude=${coordinates[0]}&hourly=pm10,pm2_5`
-      .catch(error => console.log(error))
 
       fetch(API_OPEN_METEO)
         .then((resp_meteo) => resp_meteo.json())
@@ -133,6 +132,7 @@ document.getElementById("button_select").addEventListener("click", function (eve
         .catch(error => console.log(error))
       return resp_city
     })
+    .catch(error => console.log(error))
 })
 
 document.getElementById("button_chart").addEventListener("click", function (event) {
