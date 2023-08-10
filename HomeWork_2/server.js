@@ -1,5 +1,5 @@
 //Адрес WEB-сервера http://localhost:4040/
-//Запуск сервера по команде node ./serever/js
+//Запуск сервера по команде node ./serever.js
 //Остановка серевера по команде CTRL + C
 //Модули express и path ставить через npm i
 const express = require('express')
