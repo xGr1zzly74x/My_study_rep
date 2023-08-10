@@ -1,0 +1,55 @@
+body{
+    background-color:bisque;
+}
+
+.chart{
+    width: 500px;
+    padding: 5px;
+}
+
+#Graphics {
+    border: solid;
+    display: none;
+}
+
+.button{
+    display: inline-block;
+    padding: 5px 5px;
+    border: 2px solid;
+    cursor: pointer;
+}
+
+#city_select{
+    height: 10%;
+    width: 100%;
+    justify-content: center;
+    padding: 100px 0px 15px 5px;
+}
+
+.div_table_pol th{ 
+    background-color:deepskyblue;
+}
+
+.div_table_pol td{ 
+    border: ridge;
+}
+
+.div_table_pol{
+    width: 500px;
+    border: double;
+    justify-content: center;
+    display: none;
+}
+
+.zscroll-scrollbar {
+    position: relative;
+    height: 300px;
+    overflow: auto;
+    }
+
+.table_pol{
+    background: azure;
+    table-layout: fixed;
+    width: 100%;
+
+}

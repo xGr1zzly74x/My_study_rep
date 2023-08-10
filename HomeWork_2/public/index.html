@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Домашнее задание к занятию 4</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+   
+    <div class="main">
+      <form id="city_select">
+        <input class="city_select" id="city" placeholder="Введите&nbsp;название&nbsp;города" />
+        <button type="button" class="button" id="button_select">Получить&nbsp;данные</button>
+        <button type="button" class="button" id="button_chart">Построить&nbsp;график</button>
+      </form>
+
+      <div class="div_table_pol zscroll-scrollbar"></div>
+
+      <div class="chart">
+        <canvas id="Graphics"></canvas>
+      </div>
+    </div>
+
+    <script src="src/fetch_on_browser.js"></script>
+  </body>
+</html>
