@@ -42,6 +42,7 @@ body{
 }
 #result{
     font-weight: 700;
+    display: none;
 }
 
 

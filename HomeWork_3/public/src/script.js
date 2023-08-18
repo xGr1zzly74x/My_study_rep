@@ -26,7 +26,7 @@ document.getElementById("button_calc").addEventListener("click", (event) => {
         //console.log(`${error}`)
 
         field = document.querySelector("#result")
-        field.value = ""
+        field.value = "Результат: "
 
         if (field){
             // Если ошибок нет, то выполним расчет
@@ -45,9 +45,13 @@ document.getElementById("button_calc").addEventListener("click", (event) => {
                         else{
                             result = (num -32) * 5/9
                         }
-                    field.value = result.toFixed(5)
+                    field.value = `${field.value}` + `${result.toFixed(5)}`
+                    field.style.display = "block"
+                    }
                 }
             }
+            else{
+                field.style.display = "none"
             }
         }
     })
