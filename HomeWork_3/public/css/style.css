@@ -40,5 +40,8 @@ body{
     display: flex;
     color: brown;
 }
+#result{
+    font-weight: 700;
+}
 
 

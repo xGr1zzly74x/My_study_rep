@@ -45,7 +45,7 @@ document.getElementById("button_calc").addEventListener("click", (event) => {
                         else{
                             result = (num -32) * 5/9
                         }
-                    field.value = result
+                    field.value = result.toFixed(5)
                 }
             }
             }
