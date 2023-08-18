@@ -1,0 +1,44 @@
+body{
+    background-color: plum;
+}
+
+.button{
+    display: inline-block;
+    padding: 5px 5px;
+    border: 2px solid;
+    cursor: pointer;
+}
+
+#input_value{
+    border: solid;
+}
+
+.input_form{
+    padding: 25px 1px 15px 1px;
+}
+
+.EI{
+    height: 10%;
+    width: 100%;
+    padding: 1px 0px 1px 5px;
+    display: flex;
+}
+
+.block-one label{
+    display: flex;
+  }
+
+.block-two label{
+    display: flex;
+  }
+
+.block-two{
+    padding: 1px 1px 1px 150px;
+  }
+
+.error-label{
+    display: flex;
+    color: brown;
+}
+
+

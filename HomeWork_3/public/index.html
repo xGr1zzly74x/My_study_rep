@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Домашнее задание к занятию 8</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="main">
+      <div class="EI">
+        <div class="block block-one">
+          <label for="select_EI_1">Выберите исходную ЕИ</label>
+          <select id="select_EI_1" size="2">
+            <option>Цельсии</option>
+            <option>Фаренгейты</option>
+          </select>
+        </div>
+
+        <div class="block block-two">
+          <label for="select_EI_2">Выберите конечную ЕИ</label>
+          <select id="select_EI_2" size="2">
+            <option>Цельсии</option>
+            <option>Фаренгейты</option>
+          </select>
+        </div>
+      </div>
+
+        <div class="input_form">
+          <input class="form_value" id="input_value" placeholder="Введите&nbsp;значение"/>
+          <button type="button" class="button" id="button_calc">Конвертировать</button>
+        </div>
+      <p>Результат: <output name="result" id="result"></output></p>
+    </div>
+    <script src="src/script.js"></script>
+  </body>
+</html>
