@@ -10,9 +10,9 @@ const Login = () => {
 
     //console.log('UserContext', value)
 
-    const regex_pas = new RegExp('^[a-z]+$')
-    const regex_log = new RegExp('^[a-zA-Z0-9]+$')
-    const regex_email = new RegExp('*[@]*')
+    const regex_pas   = new RegExp('^[a-z]+$')
+    const regex_log   = new RegExp('^[a-zA-Z0-9]+$')
+    const regex_email = new RegExp('@')
 
     //Объявление переменных состояния (имя, функция для измененения)
     const [isSign, setSign]             = useState<boolean>(false)//Для переключения слайдера
@@ -35,7 +35,8 @@ const Login = () => {
         setUserPass1(event.target.value)
 
         if (!event.target.value){
-            setPassError1(false)}
+            setPassError1(false)
+        }
         else{
             if (regex_pas.test(event.target.value)) {
                 setPassError1(false)
@@ -83,7 +84,6 @@ const Login = () => {
         setUserName(user)
         //Записать значение в стор
         localStorage.setItem("UserName", user)
-        console.log(regex_log.test(user))
 
         if (!user){
             setLogError(false)}
@@ -99,13 +99,16 @@ const Login = () => {
 
     const handleChangeEmail = (event: any) => {
         if (!event.target.value){
-            setemailError(false)}
+            setemailError(false)
+            console.log(regex_email.test(event.target.value))}
         else{
             if (regex_email.test(event.target.value)) {
                 setemailError(false)
+                console.log(regex_email.test(event.target.value))
             }
             else{
                 setemailError(true)
+                console.log(regex_email.test(event.target.value))
             }
         }
     }
@@ -151,7 +154,7 @@ const Login = () => {
             <div className={rightPanelActive} id="container">
                 <div className="form-container sign-up-container">
                     <form action="#">
-                        <h1>Соаздайте пользователя</h1>
+                        <h1>Создайте пользователя</h1>
                         {/* <div className="social-container">
                             <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
                             <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
@@ -164,19 +167,19 @@ const Login = () => {
                                     onChange={(event: any) => handleChangeLogin(event)}/>
                         {isLogError && <div style={{color: 'red'}}>Недопустимые символы в логине!</div>}
 
-                        <InputText type="email" 
+                        <InputText type="text" 
                                     placeholder="Введите Email" 
                                     onChange={(event: any) => handleChangeEmail(event)}/>
                         {isEmailError && <div style={{color: 'red'}}>Недопустимые символы в email!</div>}
 
                         <InputText 
-                            type="text" 
+                            type="password" 
                             placeholder="Введите пароль"
                             onChange={(event: any) => handleChangePass1(event)}/>
                         {isPassError1 && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
 
                         <InputText 
-                            type="text" 
+                            type="password" 
                             placeholder="Введите пароль повторно" 
                             onChange={(event: any) => handleChangePass2(event)}/>
                         {isPassError2 && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
