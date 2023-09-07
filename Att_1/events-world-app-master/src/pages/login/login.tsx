@@ -162,23 +162,27 @@ const Login = () => {
                         </div>
                         <span>or use your email for registration</span> */}
 
-                        <InputText type="text" 
+                        <InputText type="text"
+                                    className="InputText" 
                                     placeholder="Введите логин" 
                                     onChange={(event: any) => handleChangeLogin(event)}/>
                         {isLogError && <div style={{color: 'red'}}>Недопустимые символы в логине!</div>}
 
-                        <InputText type="text" 
+                        <InputText type="text"
+                                     className="InputText" 
                                     placeholder="Введите Email" 
                                     onChange={(event: any) => handleChangeEmail(event)}/>
                         {isEmailError && <div style={{color: 'red'}}>Недопустимые символы в email!</div>}
 
                         <InputText 
                             type="password" 
+                            className="InputText" 
                             placeholder="Введите пароль"
                             onChange={(event: any) => handleChangePass1(event)}/>
                         {isPassError1 && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
 
-                        <InputText 
+                        <InputText
+                            className="InputText"  
                             type="password" 
                             placeholder="Введите пароль повторно" 
                             onChange={(event: any) => handleChangePass2(event)}/>
@@ -191,7 +195,7 @@ const Login = () => {
 
                 <div className="form-container sign-in-container">
                     <form action="#">
-                        <h1>Sign in</h1>
+                        <h1>Выполните регистрацию</h1>
                         {/* <div className="social-container">
                             <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
                             <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
@@ -199,12 +203,15 @@ const Login = () => {
                         </div> */}
                         {/* <span>or use your account</span> */}
                         <InputText 
+                            className="InputText" 
                             type="email" 
                             placeholder="Email"
                             // onChange={(e: any) => handleChangeLogin(e)}
                             value={userName}
                         />
-                        <InputText type="password" placeholder="Пароль" />
+                        <InputText type="password" 
+                                    className="InputText" 
+                                    placeholder="Пароль" />
                         <a href="#">Забыли пароль</a>
                         <button onClick={handleClickSend}>Вход</button>
                     </form>

@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css'
 import Login from '../src/pages/login/login'
+import CatalogPlaces from '../src/pages/catalog-places/catalog-places'
 import {UserContext} from './contexts/User'
 
 const User =  {
@@ -12,7 +13,8 @@ function App() {
   return (
     <div className='rootStyle'>
       <UserContext.Provider value={User}>
-        <Login />
+        
+        <CatalogPlaces />
       </UserContext.Provider>
     </div>
   )

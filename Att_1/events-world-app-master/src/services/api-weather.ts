@@ -1,6 +1,6 @@
 import { METRIC } from '../data/metrics'
 
-export const ServiceWeather = (place: string, date: {startDate: string, endDate: string}, metric: METRIC) => {
+export const ServiceWeather = (place: string) => {
     // API Yandex
     // fea
 

@@ -151,7 +151,6 @@ document.getElementById("button_chart").addEventListener("click", function (even
     //console.log(arr_pok2_5)//массив значений y (показатели загрязнения)
 
     const PM2_5 = {
-      label: "PM2_5",
       data: arr_pok2_5,
       backgroundColor: "rgba(54, 162, 235, 0.2)", // Цвет фона
       borderColor: "rgba(54, 162, 235, 1)", // Цвет границы
@@ -160,7 +159,6 @@ document.getElementById("button_chart").addEventListener("click", function (even
     }
 
     const PM10 = {
-      label: "PM10",
       data: arr_pok10,
       backgroundColor: "rgba(255, 159, 64, 0.2)", // Цвет фона
       borderColor: "rgba(255, 159, 64, 1)", // Цвет границы
