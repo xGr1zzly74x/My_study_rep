@@ -6,6 +6,7 @@
     "start": "npx nodemon server"
   },
   "dependencies": {
+    "chart.js": "^4.4.0",
     "express": "^4.18.2",
     "path": "^0.12.7"
   }
