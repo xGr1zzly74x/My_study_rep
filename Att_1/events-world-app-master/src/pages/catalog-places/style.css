@@ -2,9 +2,9 @@ body{
     background-color:bisque;
 }
 
-.chart{
-    width: 50px;
-    padding: 5px;
+.Chart{
+    width: 500px;
+    padding: 15px;
 }
 
 #Graphics {

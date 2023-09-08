@@ -13,7 +13,6 @@ function App() {
   return (
     <div className='rootStyle'>
       <UserContext.Provider value={User}>
-        
         <CatalogPlaces />
       </UserContext.Provider>
     </div>
