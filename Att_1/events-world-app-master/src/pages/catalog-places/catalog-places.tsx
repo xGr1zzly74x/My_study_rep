@@ -189,7 +189,6 @@ const CatalogPlaces = () => {
       //Возможность обновлять график
       if (chartStatus !== undefined) {
         chartStatus.destroy()
-        console.log('Удаление')
       }
 
       const PM2_5 = {

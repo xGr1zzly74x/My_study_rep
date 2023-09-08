@@ -14,25 +14,27 @@ const Login = () => {
     const regex_log   = new RegExp('^[a-zA-Z0-9]+$')
     const regex_email = new RegExp('@')
 
-    //Объявление переменных состояния (имя, функция для измененения)
+    //Подключаем хук состояния, эффекта
     const [isSign, setSign]             = useState<boolean>(false)//Для переключения слайдера
 
     const [userName, setUserName]       = useState<string>('')//Имя пользователя
 
-    const [userPass1, setUserPass1]     = useState<string>('')//Пароль_1
-    const [userPass2, setUserPass2]     = useState<string>('')//Пароль_2
+    const [userPass_sign, setUserPass_sign]     = useState<string>('')//Пароль(вход)
+    const [userPass_new1, setUserPass_new1]     = useState<string>('')//Пароль_1(регистрация)
+    const [userPass_new2, setUserPass_new2]     = useState<string>('')//Пароль_2(регистрация)
     
-    const [isPassOther, setPassOther]   = useState<boolean>(false)//Для определения ошибки в случае несовпадения паролей
+    const [isPassOther, setPassOther]   = useState<boolean>(false)//Для определения ошибки в случае несовпадения паролей (регистрация)
 
-    const [isPassError1, setPassError1] = useState<boolean>(false)//Для валидации пароля1
-    const [isPassError2, setPassError2] = useState<boolean>(false)//Для валидации пароля2
-    const [isLogError,   setLogError]   = useState<boolean>(false)//Для валидации логина
-    const [isEmailError, setemailError] = useState<boolean>(false)//Для валидации email
+    const [isPassError_sign, setPassError_sign] = useState<boolean>(false)//Для валидации пароля  (вход)
+    const [isPassError1, setPassError1]         = useState<boolean>(false)//Для валидации пароля1 (регистрация)
+    const [isPassError2, setPassError2]         = useState<boolean>(false)//Для валидации пароля2 (регистрация)
+    const [isLogError,   setLogError]           = useState<boolean>(false)//Для валидации логина
+    const [isEmailError, setemailError]         = useState<boolean>(false)//Для валидации email
 
     //При изменении пароля_1 записать значение в переменную userPass1
-    const handleChangePass1 = (event: any ) => {
+    const handleChangePass_new_1 = (event: any ) => {
         //Меняем состояние переменной setUserPass1
-        setUserPass1(event.target.value)
+        setUserPass_new1(event.target.value)
 
         if (!event.target.value){
             setPassError1(false)
@@ -45,15 +47,12 @@ const Login = () => {
                 setPassError1(true)
             }
         }
-        //ВНИМАНИЕ! Косноль всегда будет выводить предыдущее состояние переменной UseEffect синхронный!
-        //console.log('userPass1', userPass1)
-        //console.log('userPass2', userPass2)
     }
 
     //При изменении пароля_2 записать значение в переменную userPass2
-    const handleChangePass2 = (event: any ) => {
+    const handleChangePass_new_2 = (event: any ) => {
         //Меняем состояние переменной setUserPass2
-        setUserPass2(event.target.value)
+        setUserPass_new2(event.target.value)
 
         if (!event.target.value){
             setPassError2(false)}
@@ -65,9 +64,23 @@ const Login = () => {
                 setPassError2(true)
             }
         }
-        //ВНИМАНИЕ! Косноль всегда будет выводить предыдущее состояние переменной UseEffect синхронный!
-        //console.log('userPass1', userPass1)
-        //console.log('userPass2', userPass2)
+    }
+
+    //При изменении пароля(вход) записать значение в переменную userPass_sign
+    const handleChangePass_sign = (event: any ) => {
+        //Меняем состояние переменной setUserPass2
+        setUserPass_sign(event.target.value)
+
+        if (!event.target.value){
+            setPassError_sign(false)}
+        else{
+            if (regex_pas.test(event.target.value)) {
+                setPassError_sign(false)
+            }
+            else{
+                setPassError_sign(true)
+            }
+        }
     } 
 
     //при нажатии переключить слайдер записав в перменную isSign противопложное значение
@@ -76,7 +89,6 @@ const Login = () => {
     }
 
     //Пример записи/запроса имени пользователя в/из локального хранилище Chrome 
-    //ВНИМАНИЕ! Косноль всегда будет выводить предыдущее состояние переменной UseEffect синхронный!
     const handleChangeLogin = (event: any) => {
         //Получить значение из стора
         const old_user = localStorage.getItem("UserName") || ''
@@ -114,11 +126,11 @@ const Login = () => {
     }
 
     //Эффект будет вызывать каждый раз при рендере компонента (если указать ,[] то вызов будет только при 1 рендере).
-    //Можно запускать эффект в зависимости от переменных в [], когда они все не равны.
+    //Можно запускать эффект в зависимости от переменных в []
     //Вызовем эффект для проверки паролей
     //Проверку на совпадение можно также сделать записав if else в handleChangePass1 и handleChangePass2, тогда useEffect не нужен, но так короче!
     useEffect(() => {
-        if (userPass1 !== userPass2) {
+        if (userPass_new1 !== userPass_new2) {
             setPassOther(true)
 
         } else {
@@ -150,7 +162,9 @@ const Login = () => {
     const rightPanelActive = isSign ? 'container right-panel-active' : 'container' 
 
     return(
-        <>     
+        <>     <button>Запрос данных о загрязнении</button>
+               <button>О сервисе</button>
+
             <div className={rightPanelActive} id="container">
                 <div className="form-container sign-up-container">
                     <form action="#">
@@ -169,23 +183,23 @@ const Login = () => {
                         {isLogError && <div style={{color: 'red'}}>Недопустимые символы в логине!</div>}
 
                         <InputText type="text"
-                                     className="InputText" 
-                                    placeholder="Введите Email" 
-                                    onChange={(event: any) => handleChangeEmail(event)}/>
+                                   className="InputText" 
+                                   placeholder="Введите Email" 
+                                   onChange={(event: any) => handleChangeEmail(event)}/>
                         {isEmailError && <div style={{color: 'red'}}>Недопустимые символы в email!</div>}
 
                         <InputText 
                             type="password" 
                             className="InputText" 
                             placeholder="Введите пароль"
-                            onChange={(event: any) => handleChangePass1(event)}/>
+                            onChange={(event: any) => handleChangePass_new_1(event)}/>
                         {isPassError1 && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
 
                         <InputText
                             className="InputText"  
                             type="password" 
                             placeholder="Введите пароль повторно" 
-                            onChange={(event: any) => handleChangePass2(event)}/>
+                            onChange={(event: any) => handleChangePass_new_2(event)}/>
                         {isPassError2 && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
 
                         {isPassOther && <div style={{color: 'red'}}>Пароли не совпадают</div>}
@@ -195,23 +209,28 @@ const Login = () => {
 
                 <div className="form-container sign-in-container">
                     <form action="#">
-                        <h1>Выполните регистрацию</h1>
+                        <h1>Войдите в свою учетную запись</h1>
                         {/* <div className="social-container">
                             <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
                             <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
                             <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
                         </div> */}
+
                         {/* <span>or use your account</span> */}
                         <InputText 
                             className="InputText" 
                             type="email" 
                             placeholder="Email"
-                            // onChange={(e: any) => handleChangeLogin(e)}
-                            value={userName}
+                            onChange={(event: any) => handleChangeEmail(event)}
+                            
                         />
+                        {isEmailError && <div style={{color: 'red'}}>Недопустимые символы в email!</div>}
+
                         <InputText type="password" 
-                                    className="InputText" 
-                                    placeholder="Пароль" />
+                                   className="InputText" 
+                                   placeholder="Пароль"
+                                   onChange={(event: any) => handleChangePass_sign(event)}/>
+                        {isPassError_sign && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
                         <a href="#">Забыли пароль</a>
                         <button onClick={handleClickSend}>Вход</button>
                     </form>
@@ -222,7 +241,7 @@ const Login = () => {
                         <div className="overlay-panel overlay-left">
                             <h1>Войти в учетную запись</h1>
                             <p>Для продолжения выполните вход в вашу учетную запись</p>
-                            <button onClick={handleClickSign} className="ghost" id="signIn">Вход</button>
+                            <button onClick={handleClickSign} className="ghost" id="signIn">Продолжить</button>
                         </div>
 
                         <div className="overlay-panel overlay-right">
