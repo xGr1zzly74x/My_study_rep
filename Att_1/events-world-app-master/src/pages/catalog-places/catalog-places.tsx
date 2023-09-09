@@ -1,4 +1,4 @@
-import React, { useState, } from 'react'
+import React, { useState, useEffect} from 'react'
 import { InputText } from '../../components'
 import Chart from 'chart.js/auto'
 import './style.css'
@@ -21,6 +21,11 @@ const CatalogPlaces = () => {
   let count_pm10  : any
   let count_pm2_5 : any
   let mychart     : any
+
+  useEffect(() => {
+    document.body.classList.remove('body_login')
+    
+})
 
   //При изменении города записать значение в переменную city
   const handleChangeCity = (event: any) => {
@@ -232,7 +237,6 @@ const CatalogPlaces = () => {
 
   return (
     <>
-      <div className="main">
         <form id="city_select">
           <InputText type="text"
             className="InputCity"
@@ -250,7 +254,6 @@ const CatalogPlaces = () => {
         <div className="Chart">
           <canvas id="Graphics"></canvas>
         </div>
-      </div>
     </>
   )
 }

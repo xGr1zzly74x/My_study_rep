@@ -1,25 +1,29 @@
 import React from 'react'
 import './App.css'
-import {UserContext} from './contexts/User'
-import {Routes, Route, Link} from 'react-router-dom'
+import { UserContext } from './contexts/User'
+import { Routes, Route} from 'react-router-dom'
 
 import Login from '../src/pages/login/login'
 import CatalogPlaces from '../src/pages/catalog-places/catalog-places'
 
-
-const User =  {
+const User = {
   role: 'user',
   name: '',
 }
 
 function App() {
   return (
-    <div className='rootStyle'>
+    <>
+      <div className='rootStyle'>
         <UserContext.Provider value={User}>
-          <Login />
+          <Routes>
+            <Route path='/' element={<Login/>}></Route>
+            <Route path='/CatalogPlaces' element={<CatalogPlaces/>}></Route>
+            {/* <Route path='*' element ={<NotFoundPage/>}></Route> */}
+           </Routes>
         </UserContext.Provider>
-    </div>
-    
+      </div>
+    </>
   )
 }
 
