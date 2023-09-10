@@ -5,6 +5,8 @@ import { Routes, Route} from 'react-router-dom'
 
 import Login from '../src/pages/login/login'
 import CatalogPlaces from '../src/pages/catalog-places/catalog-places'
+import About from '../src/pages/about/about'
+import NotFoundPage from '../src/pages/notfoundpage/notfoundpage'
 
 const User = {
   role: 'user',
@@ -17,9 +19,10 @@ function App() {
       <div className='rootStyle'>
         <UserContext.Provider value={User}>
           <Routes>
-            <Route path='/' element={<Login/>}></Route>
+            <Route path='/'              element={<Login/>}></Route>
             <Route path='/CatalogPlaces' element={<CatalogPlaces/>}></Route>
-            {/* <Route path='*' element ={<NotFoundPage/>}></Route> */}
+            <Route path='/About'         element={<About/>}></Route>
+            <Route path='*'              element={<NotFoundPage/>}></Route>
            </Routes>
         </UserContext.Provider>
       </div>

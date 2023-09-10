@@ -24,6 +24,8 @@ const CatalogPlaces = () => {
 
   useEffect(() => {
     document.body.classList.remove('body_login')
+    document.body.classList.remove('body_about')
+    document.body.classList.add('body_catalog_places')
     
 })
 

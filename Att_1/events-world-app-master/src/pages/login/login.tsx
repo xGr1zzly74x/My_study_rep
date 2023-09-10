@@ -130,7 +130,10 @@ const Login = () => {
     //Вызовем эффект для проверки паролей
     //Проверку на совпадение можно также сделать записав if else в handleChangePass1 и handleChangePass2, тогда useEffect не нужен, но так короче!
     useEffect(() => {
-        document.body.classList.add('body_login')
+        document.body.classList.add   ('body_login')
+        document.body.classList.remove('body_about')
+        document.body.classList.remove('body_catalog_places')
+        
         if (userPass_new1 !== userPass_new2) {
             setPassOther(true)
 
@@ -164,11 +167,16 @@ const Login = () => {
         window.location.href = 'http://localhost:3000/CatalogPlaces'
     }
 
+    const handleClickAbout = () => {
+        window.location.href = 'http://localhost:3000/About'
+    }
+
     const rightPanelActive = isSign ? 'container right-panel-active' : 'container' 
 
     return(
         <> 
             <button onClick={handleClickGetData}>Запрос данных о загрязнении</button>
+            <button onClick={handleClickAbout}>О сервисе</button>
 
             <div className={rightPanelActive} id="container">
                 <div className="form-container sign-up-container">
