@@ -14,6 +14,7 @@ const About = () => {
         <p style={{textAlign:"center", fontSize: 24, fontWeight: "bold"}}>Данный сервис был 
         разработан в рамках образовательной программы Иннополис JavaScript 2023</p>
         <p style={{textAlign:"center", fontSize: 24, fontWeight: "bold"}}>Разработчик Шабалин И.А.</p>
+        <p style={{textAlign:"center", fontSize: 24, fontWeight: "bold"}}>Преподаватель Ковалев Станислав</p>
         </>
     )
 }

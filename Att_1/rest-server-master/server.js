@@ -1,96 +1,60 @@
-const bodyParser = require('body-parser')
 const express = require('express')
-const app = express()
 const path = require('path')
 const cors = require('cors')
+const mongoose = require('mongoose')
+const dbConfig = require('./config/database.config')
+const bodyParser = require('body-parser')
+const Login_Pass = require('./app/models/Login_pass.model')
 
-// app.use(bodyParser.urlencoded({ extended: true}))
+const app = express()
 
-// app.use(bodyParser.json())
 app.use(express.json())
 app.use(cors())
 
-const dbConfig = require('./config/database.config')
-const mongoose = require('mongoose')
-
-mongoose.Promise = global.Promise
-
-mongoose.connect(dbConfig.url, {
-    useNewUrlParser: true
-}).then(() => {
-    console.log('Успешное подключение к базе данных')
-}).catch((error) => {
-    console.log('Нет соединения с базой данных. Все плохо....', error)
-    process.exit()
-})
-
-app.use(express.static(path.join(__dirname, 'public')))
-
-app.get('/', (request, response) => {
-    response.send({message: 'Наш сервис'})
-})
-
-app.get('/login', (request, response) => {
-    // console.log('request=====', request)
-    //console.log('request.!!!!query=====', request.query)
-
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Headers", "X-Requested-With");
-    response.sendFile(`${__dirname}/public/index.html`)
-})
-
-app.post('/api/login', (request, response) => {
-
-    console.log('request.body=====', request.body,)
-
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Headers", "X-Requested-With");
-    // response.sendFile(`${__dirname}/public/index.html`)
-})
-
-app.get('/main', (request, response) => {
-    response.sendFile(`${__dirname}/public/index.html`)
-})
-
-app.get('/articles', (request, response) => {
-    response.sendFile(`${__dirname}/public/index.html`)
-})
-
-app.get('/articles/article/:id', (request, response) => {
-    //запрос к базе id
-    response.sendFile(`${__dirname}/public/index.html`)
-})
-
-app.post('/articles/article/', (request, response) => {
-    console.log('request===============', request)
-    request 
-    response.send({message: 'Наш сервис POSt'})
-})
-
-app.put('/articles/article/', (request, response) => {
-    request 
-    response.send({message: 'Наш сервис'})
-})
-
-app.delete('/articles/article/:id', (request, response) => {
-    request 
-    console.log('dsfdsfs')
-    response.status(200)
-    if(id) {
-        // удаляя ем
-
-    } else {
-        response.send({message: 'Нет ID'})
-    }  
-})
-
-
-
-//localhost:4040/articles/article/213123123213
-
-
 const PORT = 4040
 
-app.listen(PORT, () => {
-    console.log(`Application start on port: ${PORT}`)
+async function start_mongoDB() {
+    try {
+        await mongoose.connect(dbConfig.url, {
+            useNewUrlParser: true
+        })
+        console.log('Успешное подключение к базе данных')
+        app.listen(PORT, () => {
+            console.log(`Сервер запущен на порту: ${PORT}`)
+        })
+
+    } catch (e) {
+        console.log('Нет соединения с базой данных. Все плохо....', e)
+        process.exit()
+    }
+}
+
+start_mongoDB()
+
+app.post('/Login', (req, res) => {
+
+    const Login = req.body.Login
+    const Password = req.body.Password
+    const Email = req.body.Email
+
+    const send_base = new Login_Pass({ Login: Login, Password: Password, Email: Email })
+
+    output = send_base.save()
+    console.log(send_base)
+    res.sendStatus(201)
+            // if (er) {
+            //     console.log(er)
+            //     res.sendStatus(500)
+
+            // } else {
+            //     console.log(`Новый аккаунт создан в базе!`)
+            //     send_base.speak()
+            //     res.sendStatus(201)
+            // }
+
 })
+
+
+
+
+

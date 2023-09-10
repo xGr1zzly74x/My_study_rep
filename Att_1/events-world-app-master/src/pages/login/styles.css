@@ -70,7 +70,8 @@ button.ghost {
 	border-color: #FFFFFF;
 }
 
-/* form {
+/* форму настроить! */
+form {
 	background-color: #FFFFFF;
 	display: flex;
 	align-items: center;
@@ -79,7 +80,7 @@ button.ghost {
 	padding: 0 50px;
 	height: 100%;
 	text-align: center;
-} */
+}
 
 .container {
 	background-color: #fff;

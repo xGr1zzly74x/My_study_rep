@@ -17,14 +17,13 @@ const Login = () => {
     //Подключаем хук состояния, эффекта
     const [isSign, setSign]             = useState<boolean>(false)//Для переключения слайдера
 
-    const [userName, setUserName]       = useState<string>('')//Имя пользователя
-
+    const [userName, setUserName]               = useState<string>('')//Имя пользователя
     const [userPass_sign, setUserPass_sign]     = useState<string>('')//Пароль(вход)
     const [userPass_new1, setUserPass_new1]     = useState<string>('')//Пароль_1(регистрация)
     const [userPass_new2, setUserPass_new2]     = useState<string>('')//Пароль_2(регистрация)
+    const [email, setemail]                     = useState<string>('')//Email
     
-    const [isPassOther, setPassOther]   = useState<boolean>(false)//Для определения ошибки в случае несовпадения паролей (регистрация)
-
+    const [isPassOther, setPassOther]           = useState<boolean>(false)//Для определения ошибки в случае несовпадения паролей (регистрация)
     const [isPassError_sign, setPassError_sign] = useState<boolean>(false)//Для валидации пароля  (вход)
     const [isPassError1, setPassError1]         = useState<boolean>(false)//Для валидации пароля1 (регистрация)
     const [isPassError2, setPassError2]         = useState<boolean>(false)//Для валидации пароля2 (регистрация)
@@ -110,8 +109,11 @@ const Login = () => {
     }
 
     const handleChangeEmail = (event: any) => {
+        setemail(event.target.value)
+
         if (!event.target.value){
             setemailError(false)
+
             console.log(regex_email.test(event.target.value))}
         else{
             if (regex_email.test(event.target.value)) {
@@ -143,24 +145,21 @@ const Login = () => {
     })
 
     const handleClickSend = () => {
-        // fetch(`//localhost:4040/login?name=${userName}`)
-        
-        fetch("//localhost:4040/api/login", {
+        fetch("http://localhost:4040/Login", {
         method: "post",
         headers: {
-            // 'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        //make sure to serialize your JSON body
         body: JSON.stringify({
-            name: userName,
-            password: userName
+            Login: userName,
+            Password: userPass_new1,
+            Email:  email}
+            )
         })
+        .then( (response) => {
+            console.log(response.json())
         })
-        // .then( (response) => {
-
-        //     //do something awesome that makes the world a better place
-        // });
+        .catch(error => console.log(`Ошибка fetch=== ${error}`))
     }
 
     const handleClickGetData = () => {
@@ -216,7 +215,7 @@ const Login = () => {
                         {isPassError2 && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
 
                         {isPassOther && <div style={{color: 'red'}}>Пароли не совпадают</div>}
-                        <button>Регистрация</button>
+                        <button onClick={handleClickSend}>Регистрация</button>
                     </form>
                 </div>
 
@@ -245,7 +244,7 @@ const Login = () => {
                                    onChange={(event: any) => handleChangePass_sign(event)}/>
                         {isPassError_sign && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
                         <a href="#">Забыли пароль</a>
-                        <button onClick={handleClickSend}>Вход</button>
+                        <button>Вход</button>
                     </form>
                 </div>
 
