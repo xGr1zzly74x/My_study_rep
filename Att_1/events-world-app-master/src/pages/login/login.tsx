@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState, useContext } from 'react'
+import React, {useEffect, useState, useContext } from 'react'
 import { InputText } from '../../components'
 import withLogger from '../../hocs/withLogger'
 import './styles.css';
 import {UserContext} from '../../contexts/User'
+
 
 //Компонент логин
 const Login = () => {
@@ -12,7 +13,7 @@ const Login = () => {
 
     const regex_pas   = new RegExp('^[a-z]+$')
     const regex_log   = new RegExp('^[a-zA-Z0-9]+$')
-    const regex_email = new RegExp('@')
+    const regex_email = new RegExp('@') 
 
     //Подключаем хук состояния, эффекта
     const [isSign, setSign]             = useState<boolean>(false)//Для переключения слайдера
@@ -144,22 +145,25 @@ const Login = () => {
         }
     })
 
-    const handleClickSend = () => {
-        fetch("http://localhost:4040/Login", {
-        method: "post",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            Login: userName,
-            Password: userPass_new1,
-            Email:  email}
-            )
+    const handleClickSend = async () => {
+        let body: { login: string, password: string, email:string } = { login: userName, password: userPass_new1, email: email };
+
+        try {
+            const response = await fetch("http://localhost:4040/NewUser",{
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
         })
-        .then( (response) => {
-            console.log(response.json())
-        })
-        .catch(error => console.log(`Ошибка fetch=== ${error}`))
+        
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status}`);
+            }
+        }
+        catch(e){
+            console.log(`Ошибка fetch=== ${e}`)
+        }
     }
 
     const handleClickGetData = () => {

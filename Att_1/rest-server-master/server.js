@@ -2,9 +2,9 @@ const express = require('express')
 const path = require('path')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const {MongoClient} = require('mongodb')
 const dbConfig = require('./config/database.config')
 const bodyParser = require('body-parser')
-const Login_Pass = require('./app/models/Login_pass.model')
 
 const app = express()
 
@@ -29,30 +29,48 @@ async function start_mongoDB() {
     }
 }
 
+async function NewUser(req, res) {
+    const client = new MongoClient(dbConfig.url)
+
+    try {
+        await client.connect()
+        const database = client.db("Auth")
+        const collection = database.collection("LogPass")
+
+        const user      = await collection.findOne({ login: req.body.Login })
+        const emeil     = await collection.findOne({ email: req.body.Email })
+
+        console.log(user)
+        console.log(emeil)
+        
+        if(user || email){
+            res.send(`В базе есть пользователь с логином - ${req.body.Login} или с email - ${req.body.Email}`)
+
+
+        }else{
+            const result = await collection.insertOne(req.body)
+            res.send(`Пользователь успешно создан!`)
+        }
+        //res.sendStatus(200)
+
+    }catch(e) {
+        console.log(e)
+        res.send(`Ошибка при выполнении запроса!`)
+        res.sendStatus(500)
+        //res.send('Ошибка при выполнении запроса!')
+
+    } finally {
+        await client.close()
+    }
+}
+
 start_mongoDB()
 
-app.post('/Login', (req, res) => {
-
-    const Login = req.body.Login
-    const Password = req.body.Password
-    const Email = req.body.Email
-
-    const send_base = new Login_Pass({ Login: Login, Password: Password, Email: Email })
-
-    output = send_base.save()
-    console.log(send_base)
-    res.sendStatus(201)
-            // if (er) {
-            //     console.log(er)
-            //     res.sendStatus(500)
-
-            // } else {
-            //     console.log(`Новый аккаунт создан в базе!`)
-            //     send_base.speak()
-            //     res.sendStatus(201)
-            // }
-
+app.post('/NewUser', (req, res) => {
+    NewUser(req, res)
 })
+
+
 
 
 
