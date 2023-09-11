@@ -187,7 +187,8 @@ const Login = () => {
     })
 
     const handleClickNewUser = async () => {
-        const body: { Login: string, Password: string, Email: string } = { Login: userName_new, Password: userPass_new1, Email: email };
+        const body: { Login: string, Password: string, Email: string } = { Login: userName_new, Password: userPass_new1, Email: email}
+        let text
 
         try {
             const response = await fetch("http://localhost:4040/NewUser", {
@@ -199,23 +200,24 @@ const Login = () => {
             })
 
             if (!response.ok) {
-                let text = await response.text()
-                console.log(text)
-                setmes(text)
+                text = `Неудачный запрос к базе данных!`
 
             } else {
-                let text = await response.text()
-                console.log(text)
-                setmes(text)
+                text = await response.text()
             }
         }
         catch (e) {
-            console.log(`Ошибка fetch=== ${e}`)
+            text = 'Нет ответа от сервера базы данных!'
+            
+        }
+        finally{
+            setmes(text)
         }
     }
 
     const handleClickCheckUser = async () => {
-        const body: { Login: string, Password: string } = { Login: userName_sign, Password: userPass_sign };
+        const body: { Login: string, Password: string } = { Login: userName_sign, Password: userPass_sign}
+        let text
 
         try {
             const response = await fetch("http://localhost:4040/CheckUser", {
@@ -227,18 +229,18 @@ const Login = () => {
             })
 
             if (!response.ok) {
-                let text = await response.text()
-                console.log(text)
-                setmes(text)
+                text = `Неудачный запрос к базе данных!`
 
             } else {
-                let text = await response.text()
-                console.log(text)
-                setmes(text)
+                text = await response.text()
             }
         }
         catch (e) {
-            console.log(`Ошибка fetch=== ${e}`)
+            text = 'Нет ответа от сервера базы данных!'
+            
+        }
+        finally{
+            setmes(text)
         }
     }
 
