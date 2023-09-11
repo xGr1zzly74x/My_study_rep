@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { InputText } from '../../components'
 import Chart from 'chart.js/auto'
 import './style.css'
@@ -6,28 +6,28 @@ import './style.css'
 const CatalogPlaces = () => {
 
   //Подключаем хук состояния
-  const [City, setCity]           = useState<string>('')    //Для сохранения поля город
-  const [uniqDate, setUniqDate]   = useState<any>([])       //Для сохранения массива дат
-  const [pok10, setPok10]         = useState<number[]>([])  //Для сохранения массива 2_5
-  const [pok2_5, setPok2_5]       = useState<number[]>([])  //Для сохранения массива 10
-  const [isCityError, setIsCity]  = useState<boolean>(false)//Для валидации города
+  const [City, setCity] = useState<string>('')    //Для сохранения поля город
+  const [uniqDate, setUniqDate] = useState<any>([])       //Для сохранения массива дат
+  const [pok10, setPok10] = useState<number[]>([])  //Для сохранения массива 2_5
+  const [pok2_5, setPok2_5] = useState<number[]>([])  //Для сохранения массива 10
+  const [isCityError, setIsCity] = useState<boolean>(false)//Для валидации города
 
   const regex_city = new RegExp('^[a-z A-Zа-яА-яЁё-]+$')    //Для валидации города
 
-  let arr_pok10 : number[] = []
+  let arr_pok10: number[] = []
   let arr_pok2_5: number[] = []
 
-  let length      : any
-  let count_pm10  : any
-  let count_pm2_5 : any
-  let mychart     : any
+  let length: any
+  let count_pm10: any
+  let count_pm2_5: any
+  let mychart: any
 
   useEffect(() => {
     document.body.classList.remove('body_login')
     document.body.classList.remove('body_about')
     document.body.classList.add('body_catalog_places')
-    
-})
+
+  })
 
   //При изменении города записать значение в переменную city
   const handleChangeCity = (event: any) => {
@@ -239,23 +239,23 @@ const CatalogPlaces = () => {
 
   return (
     <>
-        <form id="city_select">
-          <InputText type="text"
-            className="InputCity"
-            placeholder="Введите&nbsp;название&nbsp;города"
-            onChange={(event: any) => handleChangeCity(event)} />
+      <form id="city_select">
+        <InputText type="text"
+          className="InputCity"
+          placeholder="Введите&nbsp;название&nbsp;города"
+          onChange={(event: any) => handleChangeCity(event)} />
 
-          {isCityError && <div style={{ color: 'red' }}>Недопустимые символы в строке!</div>}
+        {isCityError && <div style={{ color: 'red' }}>Недопустимые символы в строке!</div>}
 
-          <button type="button" className="button" id="button_select" onClick={handleButtonFetch}>Получить&nbsp;данные</button>
-          <button type="button" className="button" id="button_chart" onClick={handleButtonGraph}>Построить&nbsp;график</button>
-        </form>
+        <button type="button" className="button" id="button_select" onClick={handleButtonFetch}>Получить&nbsp;данные</button>
+        <button type="button" className="button" id="button_chart" onClick={handleButtonGraph}>Построить&nbsp;график</button>
+      </form>
 
-        <div className="div_table_pol zscroll-scrollbar"></div>
+      <div className="div_table_pol zscroll-scrollbar"></div>
 
-        <div className="Chart">
-          <canvas id="Graphics"></canvas>
-        </div>
+      <div className="Chart">
+        <canvas id="Graphics"></canvas>
+      </div>
     </>
   )
 }

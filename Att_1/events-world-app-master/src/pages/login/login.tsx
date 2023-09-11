@@ -1,127 +1,144 @@
-import React, {useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { InputText } from '../../components'
 import withLogger from '../../hocs/withLogger'
 import './styles.css';
-import {UserContext} from '../../contexts/User'
+import { UserContext } from '../../contexts/User'
 
-
-//Компонент логин
 const Login = () => {
     const value = useContext(UserContext)
 
-    //console.log('UserContext', value)
-
-    const regex_pas   = new RegExp('^[a-z]+$')
-    const regex_log   = new RegExp('^[a-zA-Z0-9]+$')
-    const regex_email = new RegExp('@') 
+    const regex_pas = new RegExp('^[a-z]+$')
+    const regex_log = new RegExp('^[a-zA-Z0-9]+$')
+    const regex_email = new RegExp('@')
 
     //Подключаем хук состояния, эффекта
-    const [isSign, setSign]             = useState<boolean>(false)//Для переключения слайдера
+    const [isSign, setSign] = useState<boolean>(false)//Для переключения слайдера
 
-    const [userName, setUserName]               = useState<string>('')//Имя пользователя
-    const [userPass_sign, setUserPass_sign]     = useState<string>('')//Пароль(вход)
-    const [userPass_new1, setUserPass_new1]     = useState<string>('')//Пароль_1(регистрация)
-    const [userPass_new2, setUserPass_new2]     = useState<string>('')//Пароль_2(регистрация)
-    const [email, setemail]                     = useState<string>('')//Email
-    
-    const [isPassOther, setPassOther]           = useState<boolean>(false)//Для определения ошибки в случае несовпадения паролей (регистрация)
+    const [userName_sign, setUserName_sign] = useState<string>('')//Имя пользователя
+    const [userName_new, setUserName_new] = useState<string>('')//Имя пользователя
+    const [userPass_sign, setUserPass_sign] = useState<string>('')//Пароль(вход)
+    const [userPass_new1, setUserPass_new1] = useState<string>('')//Пароль_1(регистрация)
+    const [userPass_new2, setUserPass_new2] = useState<string>('')//Пароль_2(регистрация)
+    const [email, setemail] = useState<string>('')//Email
+    const [mes, setmes] = useState<any>('')//Сообщение
+
+    const [isPassOther, setPassOther] = useState<boolean>(false)//Для определения ошибки в случае несовпадения паролей (регистрация)
     const [isPassError_sign, setPassError_sign] = useState<boolean>(false)//Для валидации пароля  (вход)
-    const [isPassError1, setPassError1]         = useState<boolean>(false)//Для валидации пароля1 (регистрация)
-    const [isPassError2, setPassError2]         = useState<boolean>(false)//Для валидации пароля2 (регистрация)
-    const [isLogError,   setLogError]           = useState<boolean>(false)//Для валидации логина
-    const [isEmailError, setemailError]         = useState<boolean>(false)//Для валидации email
+    const [isPassError1, setPassError1] = useState<boolean>(false)//Для валидации пароля1 (регистрация)
+    const [isPassError2, setPassError2] = useState<boolean>(false)//Для валидации пароля2 (регистрация)
+    const [isLogError, setLogError] = useState<boolean>(false)//Для валидации логина
+    const [isEmailError, setemailError] = useState<boolean>(false)//Для валидации email
 
-    //При изменении пароля_1 записать значение в переменную userPass1
-    const handleChangePass_new_1 = (event: any ) => {
-        //Меняем состояние переменной setUserPass1
-        setUserPass_new1(event.target.value)
-
-        if (!event.target.value){
-            setPassError1(false)
-        }
-        else{
-            if (regex_pas.test(event.target.value)) {
-                setPassError1(false)
-            }
-            else{
-                setPassError1(true)
-            }
-        }
-    }
-
-    //При изменении пароля_2 записать значение в переменную userPass2
-    const handleChangePass_new_2 = (event: any ) => {
-        //Меняем состояние переменной setUserPass2
-        setUserPass_new2(event.target.value)
-
-        if (!event.target.value){
-            setPassError2(false)}
-        else{
-            if (regex_pas.test(event.target.value)) {
-                setPassError2(false)
-            }
-            else{
-                setPassError2(true)
-            }
-        }
-    }
-
-    //При изменении пароля(вход) записать значение в переменную userPass_sign
-    const handleChangePass_sign = (event: any ) => {
-        //Меняем состояние переменной setUserPass2
-        setUserPass_sign(event.target.value)
-
-        if (!event.target.value){
-            setPassError_sign(false)}
-        else{
-            if (regex_pas.test(event.target.value)) {
-                setPassError_sign(false)
-            }
-            else{
-                setPassError_sign(true)
-            }
-        }
-    } 
+    const [isButDisNewUser, setButDisNewUser] = useState<boolean>(false)//Для отображения кнопки регистрация
+    const [isButDisCheckUser, setButDisCheckUser] = useState<boolean>(false)//Для отображения кнопки вход
 
     //при нажатии переключить слайдер записав в перменную isSign противопложное значение
     const handleClickSign = () => {
         setSign(!isSign)
     }
 
-    //Пример записи/запроса имени пользователя в/из локального хранилище Chrome 
-    const handleChangeLogin = (event: any) => {
-        //Получить значение из стора
-        const old_user = localStorage.getItem("UserName") || ''
-        const user = event.target.value
-        setUserName(user)
-        //Записать значение в стор
-        localStorage.setItem("UserName", user)
+    //При изменении пароля_1 записать значение в переменную userPass1
+    const handleChangePass_new_1 = (event: any) => {
+        //Меняем состояние переменной setUserPass1
+        setUserPass_new1(event.target.value)
 
-        if (!user){
-            setLogError(false)}
-        else{
-            if (regex_log.test(user)) {
-                setLogError(false)
+        if (!event.target.value) {
+            setPassError1(false)
+        }
+        else {
+            if (regex_pas.test(event.target.value)) {
+                setPassError1(false)
             }
-            else{
-                setLogError(true)
+            else {
+                setPassError1(true)
             }
         }
     }
 
+    //При изменении пароля_2 записать значение в переменную userPass2
+    const handleChangePass_new_2 = (event: any) => {
+        //Меняем состояние переменной setUserPass2
+        setUserPass_new2(event.target.value)
+
+        if (!event.target.value) {
+            setPassError2(false)
+        }
+        else {
+            if (regex_pas.test(event.target.value)) {
+                setPassError2(false)
+            }
+            else {
+                setPassError2(true)
+            }
+        }
+    }
+
+    //При изменении пароля(вход) записать значение в переменную userPass_sign
+    const handleChangePass_sign = (event: any) => {
+        //Меняем состояние переменной setUserPass2
+        setUserPass_sign(event.target.value)
+
+        if (!event.target.value) {
+            setPassError_sign(false)
+        }
+        else {
+            if (regex_pas.test(event.target.value)) {
+                setPassError_sign(false)
+            }
+            else {
+                setPassError_sign(true)
+            }
+        }
+    }
+    //При изменении логина(регистрация) записать значение в переменную userName_new
+    const handleChangeLogin_new = (event: any) => {
+        const user = event.target.value
+        setUserName_new(user)
+
+        if (!user) {
+            setLogError(false)
+        }
+        else {
+            if (regex_log.test(user)) {
+                setLogError(false)
+            }
+            else {
+                setLogError(true)
+            }
+        }
+    }
+    //При изменении логина(вход) записать значение в переменную userName_sign
+    const handleChangeLogin_sign = (event: any) => {
+        const user = event.target.value
+        setUserName_sign(user)
+
+        if (!user) {
+            setLogError(false)
+        }
+        else {
+            if (regex_log.test(user)) {
+                setLogError(false)
+            }
+            else {
+                setLogError(true)
+            }
+        }
+    }
+    //При изменении email записать значение в переменную email
     const handleChangeEmail = (event: any) => {
         setemail(event.target.value)
 
-        if (!event.target.value){
+        if (!event.target.value) {
             setemailError(false)
 
-            console.log(regex_email.test(event.target.value))}
-        else{
+            console.log(regex_email.test(event.target.value))
+        }
+        else {
             if (regex_email.test(event.target.value)) {
                 setemailError(false)
                 console.log(regex_email.test(event.target.value))
             }
-            else{
+            else {
                 setemailError(true)
                 console.log(regex_email.test(event.target.value))
             }
@@ -133,35 +150,94 @@ const Login = () => {
     //Вызовем эффект для проверки паролей
     //Проверку на совпадение можно также сделать записав if else в handleChangePass1 и handleChangePass2, тогда useEffect не нужен, но так короче!
     useEffect(() => {
-        document.body.classList.add   ('body_login')
+        document.body.classList.add('body_login')
         document.body.classList.remove('body_about')
         document.body.classList.remove('body_catalog_places')
-        
+
+        if (mes) {
+            alert(mes)
+            setmes('')
+        }
+
         if (userPass_new1 !== userPass_new2) {
             setPassOther(true)
 
         } else {
             setPassOther(false)
         }
+
+        //Отображение кнопки регистрации
+        if (!userPass_new1 || !userPass_new2 || !email || !userName_new ||
+            isPassOther || isPassError1 || isPassError2 || isLogError || isEmailError) {
+            setButDisNewUser(false)
+        }
+
+        else {
+            setButDisNewUser(true)
+        }
+
+        //Отображение кнопки входа
+        if (!userPass_sign || !userName_sign || isPassError_sign || isLogError) {
+            setButDisCheckUser(false)
+        }
+
+        else {
+            setButDisCheckUser(true)
+        }
     })
 
-    const handleClickSend = async () => {
-        let body: { login: string, password: string, email:string } = { login: userName, password: userPass_new1, email: email };
+    const handleClickNewUser = async () => {
+        const body: { Login: string, Password: string, Email: string } = { Login: userName_new, Password: userPass_new1, Email: email };
 
         try {
-            const response = await fetch("http://localhost:4040/NewUser",{
-            method: "post",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        })
-        
+            const response = await fetch("http://localhost:4040/NewUser", {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+
             if (!response.ok) {
-                throw new Error(`Error! status: ${response.status}`);
+                let text = await response.text()
+                console.log(text)
+                setmes(text)
+
+            } else {
+                let text = await response.text()
+                console.log(text)
+                setmes(text)
             }
         }
-        catch(e){
+        catch (e) {
+            console.log(`Ошибка fetch=== ${e}`)
+        }
+    }
+
+    const handleClickCheckUser = async () => {
+        const body: { Login: string, Password: string } = { Login: userName_sign, Password: userPass_sign };
+
+        try {
+            const response = await fetch("http://localhost:4040/CheckUser", {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+
+            if (!response.ok) {
+                let text = await response.text()
+                console.log(text)
+                setmes(text)
+
+            } else {
+                let text = await response.text()
+                console.log(text)
+                setmes(text)
+            }
+        }
+        catch (e) {
             console.log(`Ошибка fetch=== ${e}`)
         }
     }
@@ -174,10 +250,10 @@ const Login = () => {
         window.location.href = 'http://localhost:3000/About'
     }
 
-    const rightPanelActive = isSign ? 'container right-panel-active' : 'container' 
+    const rightPanelActive = isSign ? 'container right-panel-active' : 'container'
 
-    return(
-        <> 
+    return (
+        <>
             <button onClick={handleClickGetData}>Запрос данных о загрязнении</button>
             <button onClick={handleClickAbout}>О сервисе</button>
 
@@ -193,33 +269,33 @@ const Login = () => {
                         <span>or use your email for registration</span> */}
 
                         <InputText type="text"
-                                    className="InputText" 
-                                    placeholder="Введите логин" 
-                                    onChange={(event: any) => handleChangeLogin(event)}/>
-                        {isLogError && <div style={{color: 'red'}}>Недопустимые символы в логине!</div>}
+                            className="InputText"
+                            placeholder="Введите логин"
+                            onChange={(event: any) => handleChangeLogin_new(event)} />
+                        {isLogError && <div style={{ color: 'red' }}>Недопустимые символы в логине!</div>}
 
                         <InputText type="text"
-                                   className="InputText" 
-                                   placeholder="Введите Email" 
-                                   onChange={(event: any) => handleChangeEmail(event)}/>
-                        {isEmailError && <div style={{color: 'red'}}>Недопустимые символы в email!</div>}
-
-                        <InputText 
-                            type="password" 
-                            className="InputText" 
-                            placeholder="Введите пароль"
-                            onChange={(event: any) => handleChangePass_new_1(event)}/>
-                        {isPassError1 && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
+                            className="InputText"
+                            placeholder="Введите Email"
+                            onChange={(event: any) => handleChangeEmail(event)} />
+                        {isEmailError && <div style={{ color: 'red' }}>Недопустимые символы в email!</div>}
 
                         <InputText
-                            className="InputText"  
-                            type="password" 
-                            placeholder="Введите пароль повторно" 
-                            onChange={(event: any) => handleChangePass_new_2(event)}/>
-                        {isPassError2 && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
+                            type="password"
+                            className="InputText"
+                            placeholder="Введите пароль"
+                            onChange={(event: any) => handleChangePass_new_1(event)} />
+                        {isPassError1 && <div style={{ color: 'red' }}>Недопустимые символы в пароле!</div>}
 
-                        {isPassOther && <div style={{color: 'red'}}>Пароли не совпадают</div>}
-                        <button onClick={handleClickSend}>Регистрация</button>
+                        <InputText
+                            className="InputText"
+                            type="password"
+                            placeholder="Введите пароль повторно"
+                            onChange={(event: any) => handleChangePass_new_2(event)} />
+                        {isPassError2 && <div style={{ color: 'red' }}>Недопустимые символы в пароле!</div>}
+
+                        {isPassOther && <div style={{ color: 'red' }}>Пароли не совпадают</div>}
+                        {isButDisNewUser && <button onClick={handleClickNewUser}>Регистрация</button>}
                     </form>
                 </div>
 
@@ -233,22 +309,22 @@ const Login = () => {
                         </div> */}
 
                         {/* <span>or use your account</span> */}
-                        <InputText 
-                            className="InputText" 
-                            type="email" 
-                            placeholder="Email"
-                            onChange={(event: any) => handleChangeEmail(event)}
-                            
-                        />
-                        {isEmailError && <div style={{color: 'red'}}>Недопустимые символы в email!</div>}
+                        <InputText
+                            className="InputText"
+                            type="text"
+                            placeholder="Введите логин"
+                            onChange={(event: any) => handleChangeLogin_sign(event)}
 
-                        <InputText type="password" 
-                                   className="InputText" 
-                                   placeholder="Пароль"
-                                   onChange={(event: any) => handleChangePass_sign(event)}/>
-                        {isPassError_sign && <div style={{color: 'red'}}>Недопустимые символы в пароле!</div>}
+                        />
+                        {isEmailError && <div style={{ color: 'red' }}>Недопустимые символы в email!</div>}
+
+                        <InputText type="password"
+                            className="InputText"
+                            placeholder="Введите пароль"
+                            onChange={(event: any) => handleChangePass_sign(event)} />
+                        {isPassError_sign && <div style={{ color: 'red' }}>Недопустимые символы в пароле!</div>}
                         <a href="#">Забыли пароль</a>
-                        <button>Вход</button>
+                        {isButDisCheckUser && <button onClick={handleClickCheckUser}>Вход</button>}
                     </form>
                 </div>
 
@@ -268,7 +344,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-            </> 
+        </>
     )
 }
 

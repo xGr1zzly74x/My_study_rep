@@ -1,10 +1,10 @@
-const express = require('express')
-const path = require('path')
-const cors = require('cors')
-const mongoose = require('mongoose')
-const {MongoClient} = require('mongodb')
-const dbConfig = require('./config/database.config')
-const bodyParser = require('body-parser')
+const express           = require('express')
+const path              = require('path')
+const cors              = require('cors')
+const mongoose          = require('mongoose')
+const {MongoClient}     = require('mongodb')
+const dbConfig          = require('./config/database.config')
+const bodyParser        = require('body-parser')
 
 const app = express()
 
@@ -37,27 +37,51 @@ async function NewUser(req, res) {
         const database = client.db("Auth")
         const collection = database.collection("LogPass")
 
-        const user      = await collection.findOne({ login: req.body.Login })
-        const emeil     = await collection.findOne({ email: req.body.Email })
-
-        console.log(user)
-        console.log(emeil)
+        const check_user  = await collection.findOne({ "Login": req.body.Login, "Email": req.body.Email })
         
-        if(user || email){
-            res.send(`В базе есть пользователь с логином - ${req.body.Login} или с email - ${req.body.Email}`)
-
+        if(check_user){
+            res.status(200).send(`В базе есть пользователь с логином - ${req.body.Login} и/или с email - ${req.body.Email}`)
+            console.log(`В базе есть пользователь с логином - ${req.body.Login} и/или с email - ${req.body.Email}`)
 
         }else{
             const result = await collection.insertOne(req.body)
-            res.send(`Пользователь успешно создан!`)
+            res.status(200).send(`Пользователь успешно создан! Логин: ${req.body.Login} Пароль: ${req.body.Password} Email: ${req.body.Email}`)
+            console.log(`Пользователь успешно создан! Логин: ${req.body.Login} Пароль: ${req.body.Password} Email: ${req.body.Email}`)
         }
-        //res.sendStatus(200)
+        
 
     }catch(e) {
         console.log(e)
-        res.send(`Ошибка при выполнении запроса!`)
-        res.sendStatus(500)
-        //res.send('Ошибка при выполнении запроса!')
+        res.status(500).send(`Ошибка при выполнении запроса!`)
+
+    } finally {
+        await client.close()
+    }
+}
+
+async function CheckUser(req, res) {
+    const client = new MongoClient(dbConfig.url)
+
+    try {
+        await client.connect()
+        const database = client.db("Auth")
+        const collection = database.collection("LogPass")
+
+        const check_user  = await collection.findOne({ "Login": req.body.Login, "Password": req.body.Password })
+        
+        if(check_user){
+            res.status(200).send(`Успешная авторизация! Логин: ${req.body.Login} Пароль: ${req.body.Password}`)
+            console.log(`Успешная авторизация! Логин: ${req.body.Login} Пароль: ${req.body.Password}`)
+
+        }else{
+            res.status(200).send(`Учетная запись логин: ${req.body.Login} пароль: ${req.body.Password} не найдена!`)
+            console.log(`Учетная запись логин: ${req.body.Login} пароль: ${req.body.Password} не найдена!`)
+        }
+        
+
+    }catch(e) {
+        console.log(e)
+        res.status(500).send(`Ошибка при выполнении запроса!`)
 
     } finally {
         await client.close()
@@ -68,6 +92,10 @@ start_mongoDB()
 
 app.post('/NewUser', (req, res) => {
     NewUser(req, res)
+})
+
+app.post('/CheckUser', (req, res) => {
+    CheckUser(req, res)
 })
 
 
