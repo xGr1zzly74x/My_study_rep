@@ -11,10 +11,10 @@ const About = () => {
 
     return (
         <>
-        <p style={{textAlign:"center", fontSize: 24, fontWeight: "bold"}}>Данный сервис был 
+        <p style={{textAlign:"center", fontSize: 23, fontWeight: "bold"}}>Данный сервис был 
         разработан в рамках образовательной программы Иннополис JavaScript 2023</p>
-        <p style={{textAlign:"center", fontSize: 24, fontWeight: "bold"}}>Разработчик Шабалин И.А.</p>
-        <p style={{textAlign:"center", fontSize: 24, fontWeight: "bold"}}>Преподаватель Ковалев Станислав</p>
+        <p style={{textAlign:"center", fontSize: 23, fontWeight: "bold"}}>С помощью данного сервиса можно получить показатели загрязнения воздуха</p>
+        <p style={{textAlign:"center", fontSize: 23, fontWeight: "bold"}}>Разработчик Шабалин И.А. Преподаватель Ковалев Станислав</p>
         </>
     )
 }

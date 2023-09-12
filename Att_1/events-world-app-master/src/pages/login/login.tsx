@@ -184,6 +184,8 @@ const Login = () => {
         }
     })
 
+    //Добавить нового пользователя POST запросом
+    //Объекты добавить в BODY
     const handleClickNewUser = async (event:any) => {
         const body: { Login: string, Password: string, Email: string } = { Login: userName_new, Password: userPass_new1, Email: email}
         let text
@@ -203,7 +205,15 @@ const Login = () => {
                 text = `Неудачный запрос к базе данных!`
 
             } else {
-                text = await response.text()
+                //получить JSON объект
+                const resp_json = await response.json()
+                if (resp_json.New === `X`){
+                    text = `Пользователь успешно создан! Логин: ${resp_json.Login} Пароль: ${resp_json.Password} Email: ${resp_json.Email}`
+                
+                }else{
+                    text = `В базе есть пользователь логин: ${resp_json.Login} и/или email: ${resp_json.Email}`
+                }
+                
             }
         }
         catch (e) {
@@ -212,26 +222,31 @@ const Login = () => {
         setmes(text)
     }
 
+    //Проверить логин + пароль пользователя GET запросом
+    //Объекты добавить в HEADERS
     const handleClickCheckUser = async (event:any) => {
-        const body: { Login: string, Password: string } = { Login: userName_sign, Password: userPass_sign}
+        const headers: { Login: string, Password: string } = { Login: userName_sign, Password: userPass_sign}
         let text
         //Убираем отправку формы действие по умолчанию - перезагрузку страницы и выполняем только наш код ниже
         event.preventDefault()
 
         try {
             const response = await fetch("http://localhost:4040/CheckUser", {
-                method: "post",
+                method: "get",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Login': headers.Login,
+                    'Password': headers.Password,
                 },
-                body: JSON.stringify(body)
             })
 
             if (!response.ok) {
                  text = `Неудачный запрос к базе данных!`
 
             } else {
-                text = await response.text()
+                //получить JSON объект
+                const resp_json = await response.json()
+                text = `Успешная авторизация! Логин: ${resp_json.Login} Пароль: ${resp_json.Password}`
             }
         }
         catch (e) {
