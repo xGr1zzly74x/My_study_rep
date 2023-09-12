@@ -58,7 +58,7 @@ async function NewUser(req, res) {
     }
 }
 
-//В GET запросе почему то объекты хранятся с маленькой буквы, хотя в запрос передавали с большой?!
+//В GET запросе в HEAD почему то объекты хранятся с маленькой буквы, хотя в запрос передавали с большой?!
 async function CheckUser(req, res) {
     const client = new MongoClient(dbConfig.url)
 
