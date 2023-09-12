@@ -18,7 +18,7 @@ const NotFoundPage = () => {
         color: 'blue',
         fontSize: 24,
         fontWeight: "bold",
-        display: "flow"
+        display: "block"
     }
 
     return (

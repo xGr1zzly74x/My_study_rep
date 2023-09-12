@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from 'react'
 import { InputText } from '../../components'
 import './styles.css'
+/* Action в Form делает fetch запрос в адресу указанному после =*/
 
 const Login = () => {
 
@@ -234,7 +235,7 @@ const Login = () => {
             }
         }
         catch (e) {
-            text = 'Нет ответа от сервера базы данных!'
+            text = 'Нет ответа от сервера базы данных!' 
         }
         setmes(text)
     }
@@ -244,7 +245,7 @@ const Login = () => {
     }
 
     const handleClickAbout = () => {
-        window.location.href = 'http://localhost:3000/About'
+        window.location.href = 'http://localhost:3000/About' 
     }
 
     const rightPanelActive = isSign ? 'container right-panel-active' : 'container'

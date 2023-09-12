@@ -47,7 +47,7 @@ async function NewUser(req, res) {
             const result = await collection.insertOne(req.body)
             res.status(200).send(`Пользователь успешно создан! Логин: ${req.body.Login} Пароль: ${req.body.Password} Email: ${req.body.Email}`)
             console.log(`Пользователь успешно создан! Логин: ${req.body.Login} Пароль: ${req.body.Password} Email: ${req.body.Email}`)
-        }
+        } 
         
 
     }catch(e) {
@@ -60,7 +60,7 @@ async function NewUser(req, res) {
 }
 
 async function CheckUser(req, res) {
-    const client = new MongoClient(dbConfig.url)
+    const client = new MongoClient(dbConfig.url)  
 
     try {
         await client.connect()
