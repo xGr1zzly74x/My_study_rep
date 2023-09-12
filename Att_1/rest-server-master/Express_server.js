@@ -41,7 +41,7 @@ async function NewUser(req, res) {
         if (check_user) {
             const resp_user = { Login: check_user.Login, Password: check_user.Password, Email: check_user.Email, _id: check_user._id, New: ``, Exist: `X`}
             res.status(200).send(resp_user)
-            console.log(`В базе есть пользователь с логином - ${check_user.Login} и/или с email - ${check_user.Email}`)
+            console.log(`В базе данных уже есть пользователь с логином - ${check_user.Login} и/или с email - ${check_user.Email}`)
 
         } else {
             const new_user = await collection.insertOne(req.body)

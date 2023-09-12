@@ -208,10 +208,10 @@ const Login = () => {
                 //получить JSON объект
                 const resp_json = await response.json()
                 if (resp_json.New === `X`){
-                    text = `Пользователь успешно создан! Логин: ${resp_json.Login} Пароль: ${resp_json.Password} Email: ${resp_json.Email}`
+                    text = `Пользователь успешно зарегестрирован! Логин: ${resp_json.Login} Пароль: ${resp_json.Password} Email: ${resp_json.Email}`
                 
                 }else{
-                    text = `В базе есть пользователь логин: ${resp_json.Login} и/или email: ${resp_json.Email}`
+                    text = `В базе данных уже создан пользователь логин: ${resp_json.Login} и/или email: ${resp_json.Email}`
                 }
                 
             }
