@@ -246,7 +246,12 @@ const Login = () => {
             } else {
                 //получить JSON объект
                 const resp_json = await response.json()
-                text = `Успешная авторизация! Логин: ${resp_json.Login} Пароль: ${resp_json.Password}`
+                if(resp_json.Login === `none`  || resp_json.Password === `none`){
+                    text = `Учетная запись логин: ${headers.Login} пароль: ${headers.Password} не найдена!`
+
+                }else{
+                    text = `Успешная авторизация! Логин: ${resp_json.Login} Пароль: ${resp_json.Password}`
+                }
             }
         }
         catch (e) {

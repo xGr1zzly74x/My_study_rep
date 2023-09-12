@@ -68,13 +68,14 @@ async function CheckUser(req, res) {
         const collection = database.collection("LogPass")
 
         const check_user = await collection.findOne({ "Login": req.headers.login, "Password": req.headers.password })
+        const null_user = { Login: 'none', Password: 'none', Email: 'none', _id: 'none'}
 
         if (check_user) {
             res.status(200).send(check_user)
             console.log(`Успешная авторизация! Логин: ${check_user.Login} Пароль: ${check_user.Password}`)
 
         } else {
-            res.status(200).send(`Учетная запись логин: ${req.headers.login} пароль: ${req.headers.password} не найдена!`)
+            res.status(200).send(null_user)
             console.log(`Учетная запись логин: ${req.headers.login} пароль: ${req.headers.password} не найдена!`)
         }
     } catch (e) {
