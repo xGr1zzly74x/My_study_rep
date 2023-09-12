@@ -1,14 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useRef } from 'react'
 import { InputText } from '../../components'
-import withLogger from '../../hocs/withLogger'
-import './styles.css';
-import { UserContext } from '../../contexts/User'
+import './styles.css'
 
 const Login = () => {
-    const value = useContext(UserContext)
 
-    const regex_pas = new RegExp('^[a-z]+$')
-    const regex_log = new RegExp('^[a-zA-Z0-9]+$')
+    const regex_pas   = new RegExp('^[a-z]+$')
+    const regex_log   = new RegExp('^[a-zA-Z0-9]+$')
     const regex_email = new RegExp('@')
 
     //Подключаем хук состояния, эффекта
@@ -186,9 +183,11 @@ const Login = () => {
         }
     })
 
-    const handleClickNewUser = async () => {
+    const handleClickNewUser = async (event:any) => {
         const body: { Login: string, Password: string, Email: string } = { Login: userName_new, Password: userPass_new1, Email: email}
         let text
+        //Убираем отправку формы действие по умолчанию - перезагрузку страницы и выполняем только наш код ниже
+        event.preventDefault()
 
         try {
             const response = await fetch("http://localhost:4040/NewUser", {
@@ -208,16 +207,15 @@ const Login = () => {
         }
         catch (e) {
             text = 'Нет ответа от сервера базы данных!'
-            
         }
-        finally{
-            setmes(text)
-        }
+        setmes(text)
     }
 
-    const handleClickCheckUser = async () => {
+    const handleClickCheckUser = async (event:any) => {
         const body: { Login: string, Password: string } = { Login: userName_sign, Password: userPass_sign}
         let text
+        //Убираем отправку формы действие по умолчанию - перезагрузку страницы и выполняем только наш код ниже
+        event.preventDefault()
 
         try {
             const response = await fetch("http://localhost:4040/CheckUser", {
@@ -229,7 +227,7 @@ const Login = () => {
             })
 
             if (!response.ok) {
-                text = `Неудачный запрос к базе данных!`
+                 text = `Неудачный запрос к базе данных!`
 
             } else {
                 text = await response.text()
@@ -237,11 +235,8 @@ const Login = () => {
         }
         catch (e) {
             text = 'Нет ответа от сервера базы данных!'
-            
         }
-        finally{
-            setmes(text)
-        }
+        setmes(text)
     }
 
     const handleClickGetData = () => {
@@ -261,7 +256,7 @@ const Login = () => {
 
             <div className={rightPanelActive} id="container">
                 <div className="form-container sign-up-container">
-                    <form action="#">
+                    <form>
                         <h1>Создайте пользователя</h1>
                         {/* <div className="social-container">
                             <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
@@ -302,7 +297,7 @@ const Login = () => {
                 </div>
 
                 <div className="form-container sign-in-container">
-                    <form action="#">
+                    <form>
                         <h1>Войдите в свою учетную запись</h1>
                         {/* <div className="social-container">
                             <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
@@ -350,4 +345,4 @@ const Login = () => {
     )
 }
 
-export default withLogger(Login)
+export default Login
