@@ -189,7 +189,7 @@ const Login = () => {
     const handleClickNewUser = async (event:any) => {
         const body: { Login: string, Password: string, Email: string } = { Login: userName_new, Password: userPass_new1, Email: email}
         let text
-        //Убираем отправку формы действие по умолчанию - перезагрузку страницы и выполняем только наш код ниже
+        //Убираем отправку формы действие по умолчанию - перезагрузка страницы и выполняем только наш код ниже
         event.preventDefault()
 
         try {
@@ -227,7 +227,7 @@ const Login = () => {
     const handleClickCheckUser = async (event:any) => {
         const headers: { Login: string, Password: string } = { Login: userName_sign, Password: userPass_sign}
         let text
-        //Убираем отправку формы действие по умолчанию - перезагрузку страницы и выполняем только наш код ниже
+        //Убираем отправку формы действие по умолчанию - перезагрузка страницы и выполняем только наш код ниже
         event.preventDefault()
 
         try {
