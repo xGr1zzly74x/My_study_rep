@@ -6,13 +6,13 @@ import './style.css'
 const CatalogPlaces = () => {
 
   //Подключаем хук состояния
-  const [City, setCity] = useState<string>('')    //Для сохранения поля город
-  const [uniqDate, setUniqDate] = useState<any>([])       //Для сохранения массива дат
-  const [pok10, setPok10] = useState<number[]>([])  //Для сохранения массива 2_5
-  const [pok2_5, setPok2_5] = useState<number[]>([])  //Для сохранения массива 10
+  const [City, setCity] = useState<string>('') //Для сохранения поля город
+  const [uniqDate, setUniqDate] = useState<any>([]) //Для сохранения массива дат
+  const [pok10, setPok10] = useState<number[]>([]) //Для сохранения массива 2_5
+  const [pok2_5, setPok2_5] = useState<number[]>([]) //Для сохранения массива 10
   const [isCityError, setIsCity] = useState<boolean>(false)//Для валидации города
 
-  const regex_city = new RegExp('^[a-z A-Zа-яА-яЁё-]+$')    //Для валидации города
+  const regex_city = new RegExp('^[a-z A-Zа-яА-яЁё-]+$')//Для валидации города
 
   let arr_pok10: number[] = []
   let arr_pok2_5: number[] = []
