@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import type { RootState, AppDispatch } from '../../store'
-import {store} from '../../../src/store'
+import {auth_selector} from '../../../src/store/slice_login'
 import { change_auth } from '../../store/slice_login'
 import { InputText } from '../../components'
 import './styles.css'
@@ -151,10 +150,7 @@ const Login = () => {
             }
         }
     }
-
-    //const now_login = useSelector((state: RootState) => state.user.users)
    
-
     //Эффект будет вызывать каждый раз при рендере компонента (если указать ,[] то вызов будет только при 1 рендере).
     //Можно запускать эффект в зависимости от переменных в []
     //Вызовем эффект для проверки паролей
@@ -279,7 +275,6 @@ const Login = () => {
         }
         setmes(text)
         dispatch(change_auth(new_state))
-
     }
 
     const handleClickGetData = () => {
