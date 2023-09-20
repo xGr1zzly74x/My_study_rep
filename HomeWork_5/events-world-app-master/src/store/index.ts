@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit"
+import { configureStore} from "@reduxjs/toolkit"
 import storage from "redux-persist/lib/storage"
-import {persistReducer} from "redux-persist"
+import {persistReducer } from "redux-persist"
 import { combineReducers } from "@reduxjs/toolkit"
 import slice_login from "../store/slice_login"
 
@@ -12,14 +12,15 @@ const persistConfig = {
 
 //Для сохранения state при обновлении страницы
 const reducer = combineReducers({
-    auth: slice_login.reducer
+    all_store: slice_login.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)
 
 export const store = configureStore({
     reducer: {
-    reducer: persistedReducer}
+    reducer: persistedReducer},
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
 })
 
 export type AppDispatch = typeof store.dispatch

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { add_city, del_city } from '../../store/slice_login'
 import { InputText } from '../../components'
 import Chart from 'chart.js/auto'
 import './style.css'
@@ -11,7 +13,8 @@ const CatalogPlaces = () => {
   const [pok10, setPok10] = useState<number[]>([]) //Для сохранения массива 2_5
   const [pok2_5, setPok2_5] = useState<number[]>([]) //Для сохранения массива 10
   const [isCityError, setIsCity] = useState<boolean>(false)//Для валидации города
-
+  
+  const dispatch = useDispatch()//Для отправки данных в Redux (вызов только на верхнем уровне)
   const regex_city = new RegExp('^[a-z A-Zа-яА-яЁё-]+$')//Для валидации города
 
   let arr_pok10: number[] = []
@@ -179,6 +182,10 @@ const CatalogPlaces = () => {
             //Сохраним наши массивы
             setPok10(arr_pok10)
             setPok2_5(arr_pok2_5)
+
+            //Redux реализация добавление и удаления событий reducers
+            dispatch(del_city(""))
+            dispatch(add_city(City))
           })
           .catch(error => console.log(`Ошибка fetch=== ${error}`))
         return resp_city

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import {auth_selector} from '../../../src/store/slice_login'
+import { useDispatch } from 'react-redux'
 import { change_auth } from '../../store/slice_login'
 import { InputText } from '../../components'
 import './styles.css'
@@ -231,7 +230,7 @@ const Login = () => {
             new_state.check = false
         }
         setmes(text)
-        dispatch(change_auth(new_state)) 
+        dispatch(change_auth(new_state))
     }
 
     //Проверить логин + пароль пользователя GET запросом
