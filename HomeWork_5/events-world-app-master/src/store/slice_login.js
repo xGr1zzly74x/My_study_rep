@@ -36,6 +36,6 @@ export const auth_selector = {
 export default s_login
 
 //Очистить sore -> localStorage
-localStorage.clear()
+//localStorage.clear()
 
 
