@@ -1,0 +1,20 @@
+.InputText {
+	background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+	width: 100%;
+}
+
+.InputCity {
+	background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+	width: 20%;
+}
+
+.border_input_red #login_new{
+	border: solid;
+    border-color: red;
+}
