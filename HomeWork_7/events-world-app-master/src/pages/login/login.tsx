@@ -30,7 +30,7 @@ const Login = () => {
   const dispatch = useDispatch() //Для отправки данных в Redux (вызов только на верхнем уровне)
   const new_state = { check: false } //Признак успешной авторизации
 
-  const [isSign, setSign] = useState<boolean>(false) //Для переключения слайдера
+  const [isSign, setSign] = useState<boolean>(true) //Для переключения слайдера
   const [mes, setmes] = useState<any>("") //Сообщение
 
   //при нажатии переключить слайдер записав в перменную isSign противопложное значение
@@ -122,6 +122,7 @@ const Login = () => {
           if (resp_json.New === `X`) {
             text = `Пользователь успешно зарегестрирован! Логин: ${resp_json.Login} Пароль: ${resp_json.Password} Email: ${resp_json.Email}`
             new_state.check = true
+            reset()
           } else {
             text = `В базе данных уже создан пользователь логин: ${resp_json.Login} и/или email: ${resp_json.Email}`
             new_state.check = false
@@ -133,7 +134,6 @@ const Login = () => {
       }
       setmes(text)
       dispatch(change_auth(new_state))
-      reset()
     }
 
   //Проверить логин + пароль пользователя GET запросом
@@ -165,6 +165,7 @@ const Login = () => {
           } else {
             text = `Успешная авторизация! Логин: ${resp_json.Login} Пароль: ${resp_json.Password}`
             new_state.check = true
+            reset()
           }
         }
       } catch (e) {
@@ -173,7 +174,6 @@ const Login = () => {
       }
       setmes(text)
       dispatch(change_auth(new_state))
-      reset()
     }
 
   const handleClickGetData = () => {
@@ -184,7 +184,7 @@ const Login = () => {
     window.location.href = "http://localhost:3000/About"
   }
 
-  const rightPanelActive = isSign ? "container right-panel-active" : "container"
+  const rightPanelActive = isSign ? "container" : "container right-panel-active"
 
   return (
     <>
@@ -201,7 +201,7 @@ const Login = () => {
               className="InputText"
               id="login_new"
               placeholder="Введите логин"
-              {...register("login_new", {
+              {...!isSign && ({...register("login_new", {
                 required: "Поле логин является обязательным!",
                 minLength: {
                   value: 5,
@@ -215,7 +215,7 @@ const Login = () => {
                   value: /^[a-zA-Z0-9]+$/,
                   message: "Недопустимые символы в логине!",
                 }
-              })}
+              })})}
             />
             {errors?.login_new && <div style={{ color: "red", fontSize: 12 }}>{errors.login_new.message}</div>}
 
@@ -224,13 +224,13 @@ const Login = () => {
               id="email"
               className="InputText"
               placeholder="Введите Email"
-              {...register("email", {
+              {...!isSign && ({...register("email", {
                 required: "Поле email является обязательным!",
                 pattern: {
                   value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                   message: "Недопустимые символы в email!",
                 }
-              })}
+              })})}
             />
 
             {errors?.email && <div style={{ color: "red", fontSize: 12 }}>{errors.email.message}</div>}
@@ -240,7 +240,7 @@ const Login = () => {
               id="password_new_1"
               className="InputText"
               placeholder="Введите пароль"
-              {...register("password_new_1", {
+              {...!isSign && ({...register("password_new_1", {
                 required: "Поле пароль является обязательным!",
                 minLength: {
                   value: 5,
@@ -261,8 +261,7 @@ const Login = () => {
                     }
                     return value === pass_2 || "Пароли не совпадают"
                 }
-              })}
-              
+              })})}
             />
             {errors?.password_new_1 && <div style={{ color: "red", fontSize: 12 }}>{errors.password_new_1.message}</div>}
 
@@ -271,7 +270,7 @@ const Login = () => {
               id="password_new_2"
               type="password"
               placeholder="Введите пароль повторно"
-              {...register("password_new_2", {
+              {...!isSign && ({...register("password_new_2", {
                 required: "Поле пароль является обязательным!",
                 minLength: {
                   value: 5,
@@ -292,7 +291,7 @@ const Login = () => {
                     }
                     return value === pass_1 || "Пароли не совпадают"
                 }
-              })}
+              })})}
             />
             {errors?.password_new_2 && <div style={{ color: "red", fontSize: 12 }}>{errors.password_new_2.message}</div>}
             <button>Регистрация</button>
@@ -307,7 +306,7 @@ const Login = () => {
               id="login_ex"
               type="text"
               placeholder="Введите логин"
-              {...register("login_ex", {
+              {...isSign && ( {...register("login_ex", {
                 required: "Поле логин является обязательным!",
                 minLength: {
                   value: 5,
@@ -321,8 +320,9 @@ const Login = () => {
                   value: /^[a-zA-Z0-9]+$/,
                   message: "Недопустимые символы в логине!",
                 }
-              })}
+              })})}
             />
+            
             {errors?.login_ex && <div style={{ color: "red", fontSize: 12 }}>{errors.login_ex.message}</div>}
 
             <input
@@ -330,7 +330,7 @@ const Login = () => {
               id="password_ex"
               className="InputText"
               placeholder="Введите пароль"
-              {...register("password_ex", {
+              {...isSign && ({...register("password_ex", {
                 required: "Поле пароль является обязательным!",
                 minLength: {
                   value: 5,
@@ -344,7 +344,7 @@ const Login = () => {
                   value: /^[a-z0-9-_*]+$/,
                   message: "Недопустимые символы в пароле!",
                 }
-              })}
+              })})}
             />
             {errors?.password_ex && <div style={{ color: "red", fontSize: 12 }}>{errors.password_ex.message}</div>}
 
