@@ -57,8 +57,14 @@ const Login = () => {
     const password_new_2_e = document.querySelector('#password_new_2') as HTMLElement
     const email_e = document.querySelector('#email') as HTMLElement
 
-    let new_tog = {theme: theme}
-    dispatch(change_theme(new_tog))
+    if(theme){
+      document.body.classList.add("body_dark")
+      document.body.classList.remove("body_light")
+
+    }else{
+      document.body.classList.add("body_light")
+      document.body.classList.remove("body_dark")
+    }
       
     if (errors?.login_new){
         login_new_e.style.border = 'solid red'
@@ -100,6 +106,9 @@ const Login = () => {
       alert(mes)
       setmes("")
     }
+
+    let new_tog = {theme: theme}
+    dispatch(change_theme(new_tog))
 
     //Для отладки увидеть, что контекст доступен на всем приложении App
     if (con_login.g_login){
