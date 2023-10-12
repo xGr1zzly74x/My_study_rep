@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { InputText } from '../../components'
 import Chart from 'chart.js/auto'
 import {CityApi} from '../../API/city'
-import { change_city }  from "../../store/slice_login"
 import './style.css'
 
 const CatalogPlaces = () => {
 
-  // const {data, isLoading} = CityApi.useGetCityCoordQuery('')
-  // console.log(data)
-
-  //Подключаем хук состояния 
   const [City, setCity] = useState<string>('') //Для сохранения поля город
   const [uniqDate, setUniqDate] = useState<any>([]) //Для сохранения массива дат
   const [pok10, setPok10] = useState<number[]>([]) //Для сохранения массива 2_5
   const [pok2_5, setPok2_5] = useState<number[]>([]) //Для сохранения массива 10
   const [isCityError, setIsCity] = useState<boolean>(false)//Для валидации города
+  const [Click_city, setClick_city] = useState<boolean>(false)//Выполнить HTTPS запрос по нажатию кнопки
+
+  const {data, isLoading} = CityApi.useGetCityCoordQuery(City, {skip: !City || isCityError || !Click_city})
+  console.log(data)
   
   const dispatch = useDispatch()//Для отправки данных в Redux (вызов только на верхнем уровне)
   const regex_city = new RegExp('^[a-z A-Zа-яА-яЁё-]+$')//Для валидации города
@@ -33,7 +32,6 @@ const CatalogPlaces = () => {
     document.body.classList.remove('body_login')
     document.body.classList.remove('body_about')
     document.body.classList.add('body_catalog_places')
-    dispatch(change_city(City))
   })
 
   //При изменении города записать значение в переменную city
@@ -55,6 +53,7 @@ const CatalogPlaces = () => {
   //Событие нажатия кнопки получить данные
   const handleButtonFetch = (event: any) => {
 
+    setClick_city(true)//Нажали кнопку
     const api_key_yandex = "85eaff1b-ef9e-4c11-89bc-ca01d1ae43de"
     const API_URL_GEO_DATA = `https://geocode-maps.yandex.ru/1.x/?apikey=${api_key_yandex}&geocode=${City}&format=json`
 

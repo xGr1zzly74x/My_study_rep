@@ -5,7 +5,7 @@ const s_login = createSlice({
     initialState: {
         auth: false,
         theme: false,
-        get_city: ''
+        city: ''
         
     },
     reducers:{
@@ -14,9 +14,6 @@ const s_login = createSlice({
         },
         change_theme(state, action){
             state.theme = action.payload.theme
-        },
-        change_city(state, action){
-            state.city = action.payload.city
         }
     }
 })
@@ -30,20 +27,13 @@ export const auth_selector = {
 }
 
 export const theme_selector = {
-    get_theme: (state) => state.all_store.theme
-}
-
-export const city_selector = {
-    get_city: (state) => state.all_store.city
+    get_theme: (state) => state.all_store.theme 
 }
 
 //слайс можно экспортить только дефолтным способом!
 export default s_login
 
 //Очистить localStorage
-//localStorage.clear()
-
-//получение глобальной переменной
-//const now_login = useSelector(auth_selector.get_auth)
+// localStorage.clear()
 
 

@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.41",
-    "@types/react-dom": "^18.2.7", 
+    "@types/react-dom": "^18.2.7",
     "ant": "^0.2.0",
     "antd": "^5.8.4",
     "chart.js": "^4.4.0",

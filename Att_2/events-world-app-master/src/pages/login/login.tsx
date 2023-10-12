@@ -230,7 +230,7 @@ const Login = () => {
 
   return (
     <>
-       <button onClick={handleClickGetData}>Информацияогороде</button>
+       <button onClick={handleClickGetData}>Запрос данных о загрязнении</button>
        <button onClick={handleClickAbout}>О сервисе</button>
 
       <ToogleSwitch IsOn={theme} Switch={f_switch}></ToogleSwitch>
