@@ -13,7 +13,7 @@ const CatalogPlaces = () => {
   const [pok2_5, setPok2_5] = useState<number[]>([]) //Для сохранения массива 10
   const [isCityError, setIsCity] = useState<boolean>(false) //Для валидации города
   
-  const [go_https, { data: City_resp}] = CityApi.useLazyGetCityCoordQuery()
+  const [go_query, { data: City_resp}] = CityApi.useLazyGetCityCoordQuery()
 
   const dispatch = useDispatch() //Для отправки данных в Redux (вызов только на верхнем уровне)
   const regex_city = new RegExp("^[a-z A-Zа-яА-яЁё-]+$") //Для валидации города
@@ -55,7 +55,7 @@ const CatalogPlaces = () => {
   //Событие нажатия кнопки получить данные
   const handleButtonFetch = (event: any) => {
     //Вызвать RTK Query и передать в него город
-    {City && !isCityError &&  go_https({city: City}, false)}
+    {City && !isCityError &&  go_query({city: City}, false)}
   }
 
   const handleButtonGraph = (event: any) => {
