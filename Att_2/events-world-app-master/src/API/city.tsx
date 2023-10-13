@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import e from 'express'
 
 export const CityApi = createApi({
     reducerPath: 'CityApi',
@@ -19,18 +18,19 @@ export const CityApi = createApi({
 
                 } else{
                     let str = result_coord?.data.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point.pos
-                    let coordinates = (str.split(" "))
+                    if (str){
+                        let coordinates = (str.split(" "))
 
-                    result_pol = await fetchWithBQ(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${coordinates[1]}&longitude=${coordinates[0]}&hourly=pm10,pm2_5`)
-                    if (result_pol.error){
-                        console.log(result_pol.error)
-                        
-                    } else{
-                        console.log(result_pol)
-                    }
-                    
+                        result_pol = await fetchWithBQ(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${coordinates[1]}&longitude=${coordinates[0]}&hourly=pm10,pm2_5`)
+                        if (result_pol.error){
+                            console.log(result_pol.error)
+                            
+                        } else{
+                            //console.log(result_pol?.data?.hourly)
+                        }
+                    }  
                 }
-                return {data: result_pol}}
+                return result_pol}
             })
         })
     })

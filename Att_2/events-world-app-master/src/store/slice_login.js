@@ -5,7 +5,11 @@ const s_login = createSlice({
     initialState: {
         auth: false,
         theme: false,
-        city: ''
+        CityState: {
+            pm2_5: [],
+            pm10: [],
+            time: [],
+        }
         
     },
     reducers:{
