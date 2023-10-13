@@ -210,7 +210,6 @@ const CatalogPlaces = () => {
       prev_dat = m_time_date[0]
     }
 
-    //Сохраним наши массивы
     setPok10(arr_pok10)
     setPok2_5(arr_pok2_5)
   }
@@ -230,6 +229,7 @@ const CatalogPlaces = () => {
         <button type="button" className="button" id="button_select" onClick={handleButtonFetch}>
           Получить&nbsp;данные
         </button>
+
         <button type="button" className="button" id="button_chart" onClick={handleButtonGraph}>
           Построить&nbsp;график
         </button>

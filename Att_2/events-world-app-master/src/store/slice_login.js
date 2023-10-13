@@ -4,13 +4,7 @@ const s_login = createSlice({
     name: 'all_store',
     initialState: {
         auth: false,
-        theme: false,
-        CityState: {
-            pm2_5: [],
-            pm10: [],
-            time: [],
-        }
-        
+        theme: false
     },
     reducers:{
         change_auth(state, action) {
