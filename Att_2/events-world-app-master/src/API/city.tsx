@@ -1,16 +1,36 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import e from 'express'
 
 export const CityApi = createApi({
     reducerPath: 'CityApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://geocode-maps.yandex.ru/'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'https:'}),
     endpoints: (build) => ({
-        getCityCoord: build.query<string, string>({
-            query: (arg) => {
+        getCityCoord: build.query({
+            queryFn: async (arg, api, extraOptions, fetchWithBQ) => {
+
                 const api_key_yandex = "85eaff1b-ef9e-4c11-89bc-ca01d1ae43de"
-                console.log(arg)
-                console.log('был запрос')
-                return {
-                url: `1.x/?apikey=${api_key_yandex}&geocode=${arg}&format=json`}}
+                let result_pol:any = {}
+                let result_coord:any = {}
+
+                result_coord = await fetchWithBQ(`//geocode-maps.yandex.ru/1.x/?apikey=${api_key_yandex}&geocode=${arg.city}&format=json`)
+
+                if (result_coord.error){
+                    console.log(result_coord.error)
+
+                } else{
+                    let str = result_coord?.data.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point.pos
+                    let coordinates = (str.split(" "))
+
+                    result_pol = await fetchWithBQ(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${coordinates[1]}&longitude=${coordinates[0]}&hourly=pm10,pm2_5`)
+                    if (result_pol.error){
+                        console.log(result_pol.error)
+                        
+                    } else{
+                        console.log(result_pol)
+                    }
+                    
+                }
+                return {data: result_pol}}
             })
         })
     })

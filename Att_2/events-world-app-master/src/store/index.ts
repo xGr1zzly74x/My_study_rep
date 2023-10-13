@@ -14,8 +14,7 @@ const persistConfig = {
 //Для сохранения state при обновлении страницы
 const reducer = combineReducers({
     all_store: slice_login.reducer,
-    [CityApi.reducerPath]: CityApi.reducer,
-
+    [CityApi.reducerPath]: CityApi.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

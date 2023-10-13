@@ -34,6 +34,6 @@ export const theme_selector = {
 export default s_login
 
 //Очистить localStorage
-// localStorage.clear()
+//localStorage.clear()
 
 
