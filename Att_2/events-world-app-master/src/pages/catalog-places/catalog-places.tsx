@@ -6,6 +6,7 @@ import { CityApi } from "../../API/city"
 import "./style.css"
 
 const CatalogPlaces = () => {
+ 
   const [City, setCity] = useState<string>("") //Для сохранения поля город
   const [Coordinates, setCoordinates] = useState<any>([]) //Для сохранения координат города
   const [uniqDate, setUniqDate] = useState<any>([]) //Для сохранения массива дат
@@ -13,7 +14,8 @@ const CatalogPlaces = () => {
   const [pok2_5, setPok2_5] = useState<number[]>([]) //Для сохранения массива 10
   const [isCityError, setIsCity] = useState<boolean>(false) //Для валидации города
   
-  const [go_query, { data: City_resp}] = CityApi.useLazyGetCityCoordQuery()
+  const [get_city, { data: City_resp}] = CityApi.useLazyGetCityDataQuery()//RTQ GET Query
+  const [SaveCity, {isError: resp_city_er}] = CityApi.useSaveQueryCityMutation()//RTK POST Query
 
   const dispatch = useDispatch() //Для отправки данных в Redux (вызов только на верхнем уровне)
   const regex_city = new RegExp("^[a-z A-Zа-яА-яЁё-]+$") //Для валидации города
@@ -26,15 +28,23 @@ const CatalogPlaces = () => {
   let count_pm2_5: any
   let mychart: any
 
-  //Вызвать эффект только при изменении City_resp
   useEffect(() => {
+
     document.body.classList.remove("body_login")
     document.body.classList.remove("body_about")
     document.body.classList.add("body_catalog_places")
 
-    {City_resp && display_tab_pol()}
+    {City_resp && display_tab_pol()}//Визуализация данных
 
-  }, [City_resp])
+    const body_mongo = {
+      timestamp: new Date(),
+      city: City,
+      ...City_resp
+    }
+
+    {City_resp && SaveCity(body_mongo).unwrap()}//Сохранить результат в MongoDB
+
+  }, [City_resp])//Вызвать эффект только при изменении City_resp
 
   //При изменении города записать значение в переменную city
   const handleChangeCity = (event: any) => {
@@ -53,8 +63,8 @@ const CatalogPlaces = () => {
   }
 
   const handleButtonFetch = (event: any) => {
-    //Вызвать RTK Query и передать в него город
-    {City && !isCityError &&  go_query({city: City}, false)}
+    //Вызвать RTK Query GET и передать в него город
+    {City && !isCityError && get_city({city: City}, false)}
   }
 
   const handleButtonGraph = (event: any) => {

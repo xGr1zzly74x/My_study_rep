@@ -28,6 +28,35 @@ async function start_mongoDB() {
     }
 }
 
+//В GET запросе в HEAD почему то объекты хранятся с маленькой буквы, хотя в запрос передавали с большой?!
+async function CheckUser(req, res) {
+    const client = new MongoClient(dbConfig.url)
+
+    try {
+        await client.connect()
+        const database = client.db("Auth")
+        const collection = database.collection("LogPass")
+
+        const check_user = await collection.findOne({ "Login": req.headers.login, "Password": req.headers.password })
+        const null_user = { Login: 'none', Password: 'none', Email: 'none', _id: 'none'}
+
+        if (check_user) {
+            res.status(200).send(check_user)
+            console.log(`Успешная авторизация! Логин: ${check_user.Login} Пароль: ${check_user.Password}`)
+
+        } else {
+            res.status(200).send(null_user)
+            console.log(`Учетная запись логин: ${req.headers.login} пароль: ${req.headers.password} не найдена!`)
+        }
+    } catch (e) {
+        console.log(e)
+        res.status(500).send(`Ошибка при выполнении запроса!`)
+
+    } finally {
+        await client.close()
+    }
+}
+
 async function NewUser(req, res) {
     const client = new MongoClient(dbConfig.url)
 
@@ -58,26 +87,18 @@ async function NewUser(req, res) {
     }
 }
 
-//В GET запросе в HEAD почему то объекты хранятся с маленькой буквы, хотя в запрос передавали с большой?!
-async function CheckUser(req, res) {
+async function History_Query(req, res) {
     const client = new MongoClient(dbConfig.url)
 
     try {
         await client.connect()
         const database = client.db("Auth")
-        const collection = database.collection("LogPass")
+        const collection = database.collection("History_Query_City")
 
-        const check_user = await collection.findOne({ "Login": req.headers.login, "Password": req.headers.password })
-        const null_user = { Login: 'none', Password: 'none', Email: 'none', _id: 'none'}
+        const new_request = await collection.insertOne(req.body)
+        res.status(200)
+        console.log(`Запрос успешно сохранен! Город: ${req.body.city}`)
 
-        if (check_user) {
-            res.status(200).send(check_user)
-            console.log(`Успешная авторизация! Логин: ${check_user.Login} Пароль: ${check_user.Password}`)
-
-        } else {
-            res.status(200).send(null_user)
-            console.log(`Учетная запись логин: ${req.headers.login} пароль: ${req.headers.password} не найдена!`)
-        }
     } catch (e) {
         console.log(e)
         res.status(500).send(`Ошибка при выполнении запроса!`)
@@ -89,13 +110,19 @@ async function CheckUser(req, res) {
 
 start_mongoDB()
 
+app.get('/CheckUser', (req, res) => {
+    CheckUser(req, res)
+})
+
 app.post('/NewUser', (req, res) => {
     NewUser(req, res)
 })
 
-app.get('/CheckUser', (req, res) => {
-    CheckUser(req, res)
+app.post('/History_Query_City', (req, res) => {
+    History_Query(req, res)
 })
+
+
 
 
 

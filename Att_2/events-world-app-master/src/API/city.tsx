@@ -4,7 +4,7 @@ export const CityApi = createApi({
     reducerPath: 'CityApi',
     baseQuery: fetchBaseQuery({baseUrl: 'https:'}),
     endpoints: (build) => ({
-        getCityCoord: build.query({
+        GetCityData: build.query({
             queryFn: async (arg, api, extraOptions, fetchWithBQ) => {
 
                 const api_key_yandex = "85eaff1b-ef9e-4c11-89bc-ca01d1ae43de"
@@ -31,6 +31,14 @@ export const CityApi = createApi({
                     }  
                 }
                 return result_pol}
+            }),
+            SaveQueryCity: build.mutation({
+                query: (body) => ({
+                    url: 'http://localhost:4040/History_Query_City',
+                    method: 'POST',
+                    body
+                })
             })
         })
+        
     })
