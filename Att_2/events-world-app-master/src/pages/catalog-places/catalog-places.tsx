@@ -220,7 +220,7 @@ const CatalogPlaces = () => {
       prev_dat = m_time_date[0]
     }
 
-    setPok10(arr_pok10)
+    setPok10(arr_pok10) 
     setPok2_5(arr_pok2_5)
   }
 
@@ -228,7 +228,7 @@ const CatalogPlaces = () => {
     <>
       <form id="city_select">
         <InputText
-          type="text"
+          type="text"   
           className="InputCity"
           placeholder="Введите&nbsp;название&nbsp;города"
           onChange={(event: any) => handleChangeCity(event)}
