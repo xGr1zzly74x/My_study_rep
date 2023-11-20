@@ -73,7 +73,7 @@ const CatalogPlaces = () => {
   const handleButtonFetch = async (event: any) => {
     //Вызвать RTK Query GET и передать в него город
     event.preventDefault()
-    {City && !isCityError && await get_city({city: City},)}
+    {City && !isCityError && await get_city({city: City}, true)}
   }
 
   const handleButtonGraph = (event: any) => {
