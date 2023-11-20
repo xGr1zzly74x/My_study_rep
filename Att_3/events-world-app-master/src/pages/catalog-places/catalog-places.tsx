@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { InputText } from "../../components/input-text"
 import Chart from "chart.js/auto"
 import { CityApi } from "../../API/city"
+import { IButton } from '../../components/IButton'
 import "./style.css"
-import { error } from "console"
 
 const CatalogPlaces = () => {
  
@@ -34,8 +34,6 @@ const CatalogPlaces = () => {
     document.body.classList.remove("body_login")
     document.body.classList.remove("body_about")
     document.body.classList.add("body_catalog_places")
-
-    console.log(City_resp)
 
     {City_resp && display_tab_pol()}//Визуализация данных
     {City_resp && save_to_mongo()}//Сохранить результат в MongoDB
@@ -75,7 +73,7 @@ const CatalogPlaces = () => {
   const handleButtonFetch = async (event: any) => {
     //Вызвать RTK Query GET и передать в него город
     event.preventDefault()
-    {City && !isCityError && await get_city({city: City}, false)}
+    {City && !isCityError && await get_city({city: City},)}
   }
 
   const handleButtonGraph = (event: any) => {
@@ -249,17 +247,11 @@ const CatalogPlaces = () => {
 
         {isCityError && <div style={{ color: "red" }}>Недопустимые символы в строке!</div>}
 
-        <button type="button" className="button" id="button_select" onClick={handleButtonFetch}>
-          Получить&nbsp;данные
-        </button>
-
-        <button type="button" className="button" id="button_chart" onClick={handleButtonGraph}>
-          Построить&nbsp;график
-        </button>
+        <IButton children="Получить данные" onClick={handleButtonFetch} className="button_external" id="button_select"></IButton>
+        <IButton children="Построить график" onClick={handleButtonGraph} className="button_external" id="button_chart"></IButton>
       </form>
 
       <div className="div_table_pol zscroll-scrollbar"></div>
-
       <div className="Chart">
         <canvas id="Graphics"></canvas>
       </div>
