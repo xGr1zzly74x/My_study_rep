@@ -4,6 +4,7 @@ import { change_auth, change_theme, theme_selector, auth_selector}  from "../../
 import { Context } from '../../context'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { ToogleSwitch } from '../../components/ToogleSwitch'
+import { IButton } from '../../components/IButton'
 import { css } from '@emotion/css'
 import "./styles.css"
 
@@ -255,11 +256,10 @@ const Login = () => {
   return (
     <>
        <h1 id="SucAuth">Вы успешно авторизованы на сервисе!</h1>
-       <button onClick={handleClickGetData}>Запрос данных о загрязнении</button>
-       <button onClick={handleClickAbout}>О сервисе</button>
-       <button id="exit_auth" onClick={handleClickSignOut}>Выход</button>
-
-      <ToogleSwitch IsOn={theme} Switch={f_switch}></ToogleSwitch>
+       <IButton children="Запрос данных о загрязнении" onClick={handleClickGetData} className="button_external"></IButton>
+       <IButton children="О сервисе" onClick={handleClickAbout} className="button_external"></IButton>
+       <IButton children="Выход" onClick={handleClickSignOut} className="button_external" id="exit_auth"></IButton>
+       <ToogleSwitch IsOn={theme} Switch={f_switch}></ToogleSwitch>
 
       <div className={rightPanelActive} id="container">
         <div className="form-container sign-up-container">
@@ -364,7 +364,7 @@ const Login = () => {
               })})}
             />
             {errors?.password_new_2 && <div style={{ color: "red", fontSize: 12 }}>{errors.password_new_2.message}</div>}
-            <button>Регистрация</button>
+            <IButton children="Регистрация" className="button_def"></IButton>
           </form>
         </div>
 
@@ -419,7 +419,7 @@ const Login = () => {
             {errors?.password_ex && <div style={{ color: "red", fontSize: 12 }}>{errors.password_ex.message}</div>}
 
             <a href="#">Забыли пароль</a>
-            <button>Вход</button>
+            <IButton children="Вход" className="button_def"></IButton>
           </form>
         </div>
 
@@ -428,17 +428,13 @@ const Login = () => {
             <div className="overlay-panel overlay-left">
               <h1>Войти в учетную запись</h1>
               <p>Для продолжения выполните вход в вашу учетную запись</p>
-              <button onClick={handleClickSign} className="ghost" id="signIn">
-                Продолжить
-              </button>
+              <IButton children="Продолжить" onClick={handleClickSign} className="ghost" id="signIn"></IButton>
             </div>
 
             <div className="overlay-panel overlay-right">
               <h1>Привет, друг!</h1>
               <p>Заполните форму регистрации, чтобы продолжить!</p>
-              <button className="ghost" id="signUp" onClick={handleClickSign}>
-                Зарегистрироваться
-              </button>
+              <IButton children="Зарегистрироваться" onClick={handleClickSign} className="ghost" id="signUp"></IButton>
             </div>
           </div>
         </div>

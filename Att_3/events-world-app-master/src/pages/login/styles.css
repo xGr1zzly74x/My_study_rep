@@ -51,6 +51,32 @@ a {
 	margin: 15px 0;
 }
 
+.button_def {
+	border-radius: 20px;
+	border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+.button_external {
+	border-radius: 20px;
+	border: 1px solid #67ff2b;
+	background-color: #642bff;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
 button {
 	border-radius: 20px;
 	border: 1px solid #FF4B2B;
@@ -63,6 +89,7 @@ button {
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
 }
+
 
 button:active {
 	transform: scale(0.95);

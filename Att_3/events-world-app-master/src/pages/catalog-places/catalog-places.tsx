@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { InputText } from "../../components"
+import { InputText } from "../../components/input-text"
 import Chart from "chart.js/auto"
 import { CityApi } from "../../API/city"
 import "./style.css"
+import { error } from "console"
 
 const CatalogPlaces = () => {
  
@@ -14,14 +15,14 @@ const CatalogPlaces = () => {
   const [pok2_5, setPok2_5] = useState<number[]>([]) //Для сохранения массива 10
   const [isCityError, setIsCity] = useState<boolean>(false) //Для валидации города
   
-  const [get_city, { data: City_resp}] = CityApi.useLazyGetCityDataQuery()//RTQ GET Query
-  const [SaveCity, {isError: resp_city_er}] = CityApi.useSaveQueryCityMutation()//RTK POST Query
+  const [get_city, {data: City_resp}] = CityApi.useLazyGetCityDataQuery()//RTQ GET Query
+  const [SaveCity, {isError: isError_city}] = CityApi.useSaveQueryCityMutation()//RTK POST Query
 
   const dispatch = useDispatch() //Для отправки данных в Redux (вызов только на верхнем уровне)
   const regex_city = new RegExp("^[a-z A-Zа-яА-яЁё-]+$") //Для валидации города
 
-  let arr_pok10: number[] = []
-  let arr_pok2_5: number[] = []
+  let arr_pok10: number[] = [] 
+  let arr_pok2_5: number[] = []  
 
   let length: any
   let count_pm10: any
@@ -35,16 +36,22 @@ const CatalogPlaces = () => {
     document.body.classList.add("body_catalog_places")
 
     {City_resp && display_tab_pol()}//Визуализация данных
+    {City_resp && save_to_mongo()}//Сохранить результат в MongoDB
 
+  }, [City_resp])//Вызвать эффект только при изменении City_resp
+
+  const save_to_mongo = async () => {
     const body_mongo = {
       timestamp: new Date(),
       city: City,
       ...City_resp
     }
-
-    {City_resp && SaveCity(body_mongo).unwrap()}//Сохранить результат в MongoDB
-
-  }, [City_resp])//Вызвать эффект только при изменении City_resp
+    try { 
+      await SaveCity(body_mongo).unwrap()
+    } catch (error) {
+      alert(`Нет ответа от сервера MongoDB, история запроса не сохранена!`)
+    }
+  }
 
   //При изменении города записать значение в переменную city
   const handleChangeCity = (event: any) => {
