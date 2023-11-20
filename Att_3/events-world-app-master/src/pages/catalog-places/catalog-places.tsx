@@ -129,16 +129,49 @@ const CatalogPlaces = () => {
           plugins: {
             title: {
               display: true,
+              font: {
+                size: 16,
+                style: 'italic',
+                family: 'Helvetica Neue',
+              },
               text: `Среднесуточное загрязнение воздуха в городе ${City}`,
+              color: "green",
+            },
+            legend: {
+              labels: {
+                color: "black",
+                font: {
+                  size: 16
+                }
+              }
             },
           },
           scales: {
-            y: { beginAtZero: true },
+            y: {
+              ticks: {
+              color: "blue",
+              font: {
+                size: 14,
+              },
+              stepSize: 1,
+            }, 
+            beginAtZero: true,
           },
+          x: {
+            ticks: {
+            color: "blue",
+            font: {
+              size: 14,
+            },
+            stepSize: 1,
+          }, 
+          beginAtZero: true,
         },
-      })
-    }
-  }
+        },
+      }
+    })  
+  }}
+
 
   const display_tab_pol = () => {
     const div_table_pol = document.querySelector(".div_table_pol") as HTMLDivElement
