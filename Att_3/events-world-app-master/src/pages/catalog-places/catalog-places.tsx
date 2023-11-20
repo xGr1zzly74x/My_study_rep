@@ -35,6 +35,8 @@ const CatalogPlaces = () => {
     document.body.classList.remove("body_about")
     document.body.classList.add("body_catalog_places")
 
+    console.log(City_resp)
+
     {City_resp && display_tab_pol()}//Визуализация данных
     {City_resp && save_to_mongo()}//Сохранить результат в MongoDB
 
@@ -46,6 +48,7 @@ const CatalogPlaces = () => {
       city: City,
       ...City_resp
     }
+
     try { 
       await SaveCity(body_mongo).unwrap()
     } catch (error) {
@@ -69,12 +72,15 @@ const CatalogPlaces = () => {
     }
   }
 
-  const handleButtonFetch = (event: any) => {
+  const handleButtonFetch = async (event: any) => {
     //Вызвать RTK Query GET и передать в него город
-    {City && !isCityError && get_city({city: City}, false)}
+    event.preventDefault()
+    {City && !isCityError && await get_city({city: City}, false)}
   }
 
   const handleButtonGraph = (event: any) => {
+    event.preventDefault()
+
     if (pok10.length > 0 && pok10.length > 0) {
       const Graphics = document.querySelector("#Graphics") as HTMLElement
       Graphics.style.setProperty("display", "block")

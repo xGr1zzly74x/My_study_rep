@@ -15,8 +15,8 @@ const root = ReactDOM.createRoot(
 
 let persistor = persistStore(store);
 
+//React.StrictMode - используется только для разработки, UseEffect может срабатывать по 2 раза из-за него!
 root.render(
-  <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <PersistGate persistor={persistor}>
@@ -24,7 +24,6 @@ root.render(
         </PersistGate>
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>
 )
 
 // If you want to start measuring performance in your app, pass a function
