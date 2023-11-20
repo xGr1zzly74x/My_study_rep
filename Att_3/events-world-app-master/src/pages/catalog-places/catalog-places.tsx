@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { InputText } from "../../components/input-text"
+import { theme_selector }  from "../../store/slice_login"
 import Chart from "chart.js/auto"
 import { CityApi } from "../../API/city"
 import { IButton } from '../../components/IButton'
 import "./style.css"
 
 const CatalogPlaces = () => {
- 
+  
+  const redux_theme = useSelector(theme_selector.get_theme)//Глобальная тема
   const [City, setCity] = useState<string>("") //Для сохранения поля город
   const [Coordinates, setCoordinates] = useState<any>([]) //Для сохранения координат города
   const [uniqDate, setUniqDate] = useState<any>([]) //Для сохранения массива дат
   const [pok10, setPok10] = useState<number[]>([]) //Для сохранения массива 2_5
   const [pok2_5, setPok2_5] = useState<number[]>([]) //Для сохранения массива 10
   const [isCityError, setIsCity] = useState<boolean>(false) //Для валидации города
+  const [theme, setTheme] = useState<boolean>(redux_theme)//Локальная тема
   
   const [get_city, {data: City_resp}] = CityApi.useLazyGetCityDataQuery()//RTQ GET Query
   const [SaveCity, {isError: isError_city}] = CityApi.useSaveQueryCityMutation()//RTK POST Query
@@ -34,6 +37,15 @@ const CatalogPlaces = () => {
     document.body.classList.remove("body_login")
     document.body.classList.remove("body_about")
     document.body.classList.add("body_catalog_places")
+
+    if(theme){
+      document.body.classList.add("body_dark")
+      document.body.classList.remove("body_light")
+
+    }else{
+      document.body.classList.add("body_light")
+      document.body.classList.remove("body_dark")
+    }
 
     {City_resp && display_tab_pol()}//Визуализация данных
     {City_resp && save_to_mongo()}//Сохранить результат в MongoDB

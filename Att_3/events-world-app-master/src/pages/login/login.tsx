@@ -67,6 +67,7 @@ const Login = () => {
       container_e.style.display = 'none'
       SucAuth_e.style.display = 'flex'
       exit_auth_e.style.display = 'inline-block'
+      
     }else{
       container_e.style.display = 'flex'
       SucAuth_e.style.display = 'none'
