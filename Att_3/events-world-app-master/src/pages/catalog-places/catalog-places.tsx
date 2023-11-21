@@ -151,9 +151,10 @@ const CatalogPlaces = () => {
           scales: {
             y: {
               ticks: {
-              color: "aqua",
+              color: "black",
               font: {
                 size: 14,
+                weight: '700',
               },
               stepSize: 1,
             }, 
@@ -161,9 +162,10 @@ const CatalogPlaces = () => {
           },
           x: {
             ticks: {
-            color: "aqua",
+            color: "black",
             font: {
               size: 14,
+              weight: '700',
             },
             stepSize: 1,
           }, 
