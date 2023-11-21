@@ -132,16 +132,18 @@ const CatalogPlaces = () => {
               font: {
                 size: 16,
                 style: 'italic',
-                family: 'Helvetica Neue',
+                weight: 'bold',
               },
               text: `Среднесуточное загрязнение воздуха в городе ${City}`,
-              color: "green",
+              color: 'rgb(140, 102, 255)',
             },
             legend: {
               labels: {
                 color: "black",
                 font: {
-                  size: 16
+                  size: 16,
+                  style: 'italic',
+                  weight: '700',
                 }
               }
             },
@@ -149,7 +151,7 @@ const CatalogPlaces = () => {
           scales: {
             y: {
               ticks: {
-              color: "blue",
+              color: "aqua",
               font: {
                 size: 14,
               },
@@ -159,7 +161,7 @@ const CatalogPlaces = () => {
           },
           x: {
             ticks: {
-            color: "blue",
+            color: "aqua",
             font: {
               size: 14,
             },
