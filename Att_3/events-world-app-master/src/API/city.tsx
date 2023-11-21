@@ -33,7 +33,6 @@ export const CityApi = createApi({
             }
           }
         }
-        console.log(result_pol)
         return result_pol
       },
     }),
