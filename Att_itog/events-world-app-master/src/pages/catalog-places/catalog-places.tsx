@@ -290,7 +290,8 @@ const CatalogPlaces = () => {
     <>
       <form id="city_select">
         <InputText
-          type="text"   
+          type="text" 
+          id="InputCity"  
           className="InputCity"
           placeholder="Введите&nbsp;название&nbsp;города"
           onChange={(event: any) => handleChangeCity(event)}

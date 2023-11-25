@@ -1,4 +1,4 @@
-describe("Att_3", () => {
+describe("Att_itog", () => {
   it("test sign in", () => {
     cy.visit("http://localhost:3000/")
     cy.get('#login_ex').type("login")
@@ -9,3 +9,4 @@ describe("Att_3", () => {
     cy.contains("Войдите в свою учетную запись")
   })
 })
+
