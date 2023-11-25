@@ -60,7 +60,7 @@ const CatalogPlaces = () => {
       ...City_resp
     }
 
-    //Сохранить историю запроса через worker
+    //Сохранить историю запроса через worker в отдельном потоке
     const worker = new Worker(new URL("../../worker/worker.js", import.meta.url))
     worker.postMessage(body_mongo)
     worker.onmessage = (e) => {
