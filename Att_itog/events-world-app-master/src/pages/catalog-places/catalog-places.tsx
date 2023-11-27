@@ -178,7 +178,6 @@ const CatalogPlaces = () => {
     })  
   }}
 
-
   const display_tab_pol = () => {
     const div_table_pol = document.querySelector(".div_table_pol") as HTMLDivElement
 
