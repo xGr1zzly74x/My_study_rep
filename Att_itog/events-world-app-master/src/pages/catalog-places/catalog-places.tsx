@@ -33,6 +33,8 @@ const CatalogPlaces = () => {
   let count_pm2_5: any
   let mychart: any
 
+  const worker = new Worker(new URL("../../worker/worker.js", import.meta.url))
+
   useEffect(() => {
 
     document.body.classList.remove("body_login")
@@ -59,12 +61,10 @@ const CatalogPlaces = () => {
       city: City,
       ...City_resp
     }
-
     //Сохранить историю запроса через worker в отдельном потоке
-    const worker = new Worker(new URL("../../worker/worker.js", import.meta.url))
     worker.postMessage(body_mongo)
-    worker.onmessage = (e) => {
-      alert(e.data)
+    worker.onmessage = (mes) => {
+      alert(mes.data)
     }
   }
 

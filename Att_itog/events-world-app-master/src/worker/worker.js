@@ -5,7 +5,7 @@ onmessage = async (e) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(e)
+            body: JSON.stringify(e.data)
         })
         if (!response.ok) {
             postMessage(`Нет ответа от сервера MongoDB, история запроса не сохранена!`)

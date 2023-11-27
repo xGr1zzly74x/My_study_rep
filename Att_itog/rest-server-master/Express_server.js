@@ -96,7 +96,7 @@ async function History_Query(req, res) {
         const collection = database.collection("History_Query_City")
 
         const new_request = await collection.insertOne(req.body)
-        res.status(200)
+        await res.status(200).send('Запрос успешно сохранен!')
         console.log(`Запрос успешно сохранен! Город: ${req.body.city}`)
 
     } catch (e) {
